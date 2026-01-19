@@ -4,7 +4,12 @@ import Navigation from '../components/Navigation';
 import Link from 'next/link';
 
 // Custom typewriter hook (UNCHANGED)
-const useTypewriter = (text, speed = 50, delay = 0) => {
+const useTypewriter = (
+  text: string,
+  speed: number = 50,
+  delay: number = 0
+): { displayText: string; isComplete: boolean } => {
+
   const [displayText, setDisplayText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
