@@ -78,7 +78,7 @@
       approach: ['Drop-cast InAs nanowires onto p⁺ Si / SiO₂ (100 nm) substrates and mapped them by optical microscopy.', 'Patterned source and drain contacts by LOR2A / S1811 bilayer photolithography at the Toronto Nanofabrication Centre.', 'Set up molecular-dynamics simulations of the nanowire–electrolyte interface to map the electrostatic potential.'],
       result: 'In progress. Nanowires are placed, the contact pattern is exposed, and the first simulations are running.',
       next: '(NH₄)₂S passivation, Ti/Au metallization and lift-off, then wire bonding. After that: pH sensing in PBS and biotin–streptavidin detection, with a PDMS microfluidic flow cell for analyte delivery.',
-      stack: ['Photolithography', 'Optical microscopy', 'Molecular dynamics', 'Python'], fig: { slot: 'Micrograph of your drop-cast nanowires', cap: 'Optical micrograph · scale bar' } },
+      stack: ['Photolithography', 'Optical microscopy', 'Molecular dynamics', 'Python'], fig: { tpl: 'tpl-fet', cap: 'The device in cross-section' } },
     dbs: { meta: [['Status', 'Analysis done ; validation ongoing'], ['Role', 'Data analysis and literature review'], ['With', 'Vahid Attari'], ['Data', 'Milosevic et al. 2021']], title: 'DEEP BRAIN STIMULATION', kicker: '02 · Oct 2026 – present · Milosevic et al. 2021 dataset',
       problem: 'Deep brain stimulation treats Parkinson’s disease and tremor, yet the same pulse suppresses neurons in some nuclei and excites them in others. Working out why starts with single-neuron firing rates across stimulation frequencies.',
       approach: ['Read 749 Spike2 recordings of 115 neurons (STN, SNr, Vim, Rt) with Python and Neo.', 'Detected spikes by threshold, blanking the stimulation artifact after each pulse.', 'Corrected mislabelled stimulation frequencies and flagged unusable files.', 'Wrote a 16-source review of DBS mechanisms to frame follow-on modelling.'],
@@ -90,12 +90,32 @@
       approach: ['Built a LangGraph pipeline: load the PDF, filter relevant passages, extract Ms, Mr, Hc, μ₀Hc, Jr and (BH)max as structured JSON with the Claude API.', 'Added a rule-based physics validator: Mr ≤ Ms, unit checks, and every value must quote its source.', 'Routed validator failures back to the extractor with feedback, as a self-correction loop.'],
       result: 'In a fault-injection pilot with three repeats per condition, the loop raised accuracy from 87.5% to 100% for one extra LLM call.',
       next: 'A hand-labelled benchmark of 10–12 Nd–Fe–B permanent-magnet papers, with a focus on tables and figures.',
-      stack: ['LangGraph', 'Claude API', 'Python', 'LangSmith', 'GitHub'], fig: { slot: 'Screenshot of the graph in LangSmith Studio', cap: 'Extractor graph · validator loop' } },
+      stack: ['LangGraph', 'Claude API', 'Python', 'LangSmith', 'GitHub'], fig: { tpl: 'tpl-agent', cap: 'The pipeline and its self-correction loop' } },
     wires: { meta: [['Status', 'Done'], ['Role', 'Design, deposition and imaging'], ['Where', 'NE 454D lab, University of Waterloo']], title: 'MULTI-SEGMENT METAL NANOWIRES', kicker: '04 · Fall 2025 · NE 454D, University of Waterloo',
       problem: 'A nanowire made of several metals can combine jobs in one strand: magnetic handling, catalysis, conduction. Building one needs control over the length of every segment.',
       approach: ['Electrodeposited eight segments (Ag, Pd, Au, Ni) inside 0.2 µm track-etched polycarbonate templates.', 'Set each segment’s length with Faraday’s law, by counting the charge passed.', 'Released the wires by selectively etching silver, including a designed gap of about 2 µm.', 'Checked the result by SEM.'],
       result: 'Released wires were 15–20 µm long and 200–250 nm wide, matching the template.',
       next: '', stack: ['Electrodeposition', 'SEM', 'Process design'], fig: { set: 'wires' } },
+    christie: { kind: 'job', meta: [['Role', 'Optical Engineering Co-op'], ['When', 'Jan – Apr 2025'], ['Where', 'Kitchener, Ontario']], title: 'CHRISTIE DIGITAL', kicker: 'Experience · Laser projection',
+      problem: 'A laser projector heats up as it runs, and the heat shifts the focus of its lens. To fix that you first need to measure it: how far the focus moves, how fast, and at what temperature.',
+      approach: ['Built a camera-based measurement of focus drift, using contrast autofocus and single-pixel intensity tracking on the projected image.', 'Ran automated thermal tests lasting several hours through the Testinator APIs.', 'Analysed more than 100 test cycles in Python with the thermal team.', 'Characterized optical parts and beams: anti-reflection, colour and polarization filters, diffusers and 3D glasses, by spectrometry, transmission spectroscopy, beam profiling and speckle analysis.'],
+      result: 'A repeatable way to quantify thermally induced defocus, with data from 100+ cycles for the thermal team to work from.', next: '',
+      stack: ['Python', 'Camera metrology', 'Spectrometry', 'BeamGage', 'Test automation'], fig: { tpl: 'tpl-focus', cap: 'How the focus drift was measured' } },
+    fluidai: { kind: 'job', meta: [['Role', 'R&D Engineering Associate'], ['When', 'Sep 2023 – Apr 2024'], ['Where', 'Kitchener, Ontario']], title: 'FLUIDAI MEDICAL', kicker: 'Experience · Medical sensors',
+      problem: 'After surgery, the chemistry of the fluid draining from a patient can warn of complications early. That needs small pH sensors that are accurate, consistent from unit to unit and quick to calibrate.',
+      approach: ['Designed and validated more than 50 pH and ISFET-based sensors to ISO 13485 quality requirements.', 'Led a Design of Experiments study on the calibration procedure.', 'Wrote Python filters that remove artifacts from real-time patient-monitoring signals, across more than 1,000 datasets.', 'Built automated calibration stations with custom PCBs, Arduino control and 3D-printed fixtures, and wrote five SOPs.'],
+      result: 'Calibration time fell by 66%, saving about 20 engineer-hours a month, with 95% compliance on sensor quality checks.', next: '',
+      stack: ['ISFET sensors', 'Design of Experiments', 'Python', 'PCB design', 'Arduino', 'ISO 13485'], fig: { tpl: 'tpl-isfet', cap: 'An ISFET pH sensor in cross-section' } },
+    batteries: { kind: 'job', meta: [['Role', 'Research Assistant'], ['When', 'Feb – May 2023'], ['Where', 'Astana, Kazakhstan']], title: 'INSTITUTE OF BATTERIES', kicker: 'Experience · Battery materials',
+      problem: 'A cathode material is only as good as the cells you can build from it. Improving cycle life means making cells, testing them, and tracing each result back to the material.',
+      approach: ['Fabricated and tested more than 50 coin and pouch cells with LiFePO₄ and NCM cathodes.', 'Characterized cathodes and electrolytes by SEM, XRD, impedance spectroscopy and cyclic voltammetry.', 'Deposited electrode and interface films by magnetron sputtering, PECVD and electrospinning in an ISO 5–7 cleanroom.', 'Wrote three technical invention disclosures (150+ pages) on lithium and nickel extraction and NCM811 cathode doping, with a review of 100+ patents and papers.'],
+      result: 'Doping strategies improved cycle life by 15%.', next: '',
+      stack: ['Coin and pouch cells', 'SEM', 'XRD', 'EIS', 'Sputtering', 'PECVD'], fig: { tpl: 'tpl-coin', cap: 'Inside a coin cell' } },
+    ttc: { kind: 'job', meta: [['Role', 'Access Control Administrator'], ['When', 'May – Aug 2022'], ['Where', 'Toronto, Ontario']], title: 'TORONTO TRANSIT COMMISSION', kicker: 'Experience · IT operations',
+      problem: 'A large organization has to review regularly who has access to which systems. Done by hand across thousands of accounts, that review is slow and easy to get wrong.',
+      approach: ['Automated the access-review reporting with Python and Excel VBA.', 'Covered accounts in Active Directory and on the IBM mainframe.'],
+      result: 'Automated reviews for more than 5,000 accounts.', next: '',
+      stack: ['Python', 'Excel VBA', 'Active Directory'], fig: { tpl: 'tpl-ttc', cap: 'From account lists to a review report' } },
     lenia: { meta: [['Status', 'Done'], ['Role', 'Sole author'], ['Where', 'University of Waterloo']], title: 'EVOLVING ARTIFICIAL LIFE', kicker: '05 · Winter 2026 · Independent paper, University of Waterloo',
       problem: 'Can simple local rules be evolved to grow a target shape from noise? And does that shape then repair itself, as living tissue does?',
       approach: ['Wrote an FFT-accelerated Lenia simulation in Python.', 'Ran a (μ+λ) evolution strategy over a 7-dimensional space of kernel and growth parameters.', 'Scored target shapes with a composite fitness, then deleted parts of each organism to test self-repair.'],
@@ -125,7 +145,7 @@
     return fig;
   }
   Array.prototype.forEach.call(document.querySelectorAll('figure[data-set]'), function (f) { buildSet(f, f.getAttribute('data-set')); });
-  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia'], note: ['sem', 'eis', 'xrd', 'dls'] };
+  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia'], job: ['christie', 'fluidai', 'batteries', 'ttc'], note: ['sem', 'eis', 'xrd', 'dls'] };
   function fillMeta(c, stack) {
     sheetMeta.textContent = '';
     (c.meta || []).concat(stack ? [['Stack', stack.join(' ; ')]] : []).forEach(function (m) { var p = el('p'); p.appendChild(el('b', '', m[0])); p.appendChild(document.createTextNode(' : ' + m[1])); sheetMeta.appendChild(p); });
@@ -147,7 +167,7 @@
   function stepSheet(d) {
     if (!sheetNow) return; var list = ORDER[sheetNow.kind], k = (list.indexOf(sheetNow.id) + d + list.length) % list.length, kind = sheetNow.kind;
     sheet.classList.add('out');
-    setTimeout(function () { if (kind === 'case') openCase(list[k]); else openNote(list[k]); }, 210);
+    setTimeout(function () { if (kind === 'note') openNote(list[k]); else openCase(list[k]); }, 210);
   }
   document.getElementById('sheet-prev').addEventListener('click', function () { stepSheet(-1); });
   document.getElementById('sheet-next').addEventListener('click', function () { stepSheet(1); });
@@ -165,10 +185,11 @@
     else if (c.fig.chart) { var s = document.createElementNS(SVGNS, 'svg'); s.setAttribute('class', 'pic plot'); s.setAttribute('id', 'sheet-chart'); s.setAttribute('viewBox', '0 0 300 225'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', dbsChart.getAttribute('aria-label')); fig.appendChild(s); drawChart(s, freqIdx); }
     else if (c.fig.img) { var im = el('img', 'pic'); im.src = document.querySelector(c.fig.img).src; im.alt = document.querySelector(c.fig.img).alt; fig.appendChild(im); }
     else if (c.fig.video) { var sv0 = document.querySelector(c.fig.video), vd = el('video', 'pic sq'); vd.src = sv0.getAttribute('src'); vd.poster = sv0.getAttribute('poster'); vd.muted = true; vd.loop = true; vd.playsInline = true; vd.setAttribute('aria-label', sv0.getAttribute('aria-label')); if (reduce) vd.controls = true; else vd.autoplay = true; fig.appendChild(vd); }
+    else if (c.fig.tpl) { fig.className = 'photo chart'; fig.appendChild(document.getElementById(c.fig.tpl).content.cloneNode(true)); }
     else { var sl = el('div', 'pic slot'); sl.appendChild(document.createTextNode('Photo slot')); sl.appendChild(el('br')); sl.appendChild(document.createTextNode(c.fig.slot)); fig.appendChild(sl); }
     if (!c.fig.set) fig.appendChild(el('figcaption', '', c.fig.cap)); fig.style.setProperty('--rot', '0deg'); sheetSide.appendChild(fig);
     if (c.fig.extra) { var f2 = el('figure', 'photo chart wide'), i2 = el('img', 'pic free'), s2 = document.querySelector(c.fig.extra); i2.src = s2.src; i2.alt = s2.alt; f2.appendChild(i2); f2.appendChild(el('figcaption', '', c.fig.extraCap)); f2.style.setProperty('--rot', '0deg'); sheetMain.appendChild(f2); }
-    fillMeta(c, c.stack); showSheet('case', id);
+    fillMeta(c, c.stack); showSheet(c.kind || 'case', id);
   }
   function closeCase() { if (sheet.hidden) return; sheet.hidden = true; sheetNow = null; sheet.classList.remove('in', 'out'); docEl.style.overflow = ''; if (sheetFrom) sheetFrom.focus(); }
   var NOTES = {
@@ -268,6 +289,11 @@
   }
   Array.prototype.forEach.call(document.querySelectorAll('[data-note]'), function (b) { b.addEventListener('click', function () { sheetFrom = b; openNote(b.getAttribute('data-note')); }); });
 
+  var tl = document.getElementById('timeline');
+  if (window.IntersectionObserver && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    tl.classList.add('anim');
+    new IntersectionObserver(function (es, ob) { es.forEach(function (e) { if (e.isIntersecting) { tl.classList.add('in'); ob.disconnect(); } }); }, { threshold: 0.15 }).observe(tl);
+  }
   var folder = document.getElementById('archive'), folderTab = folder.querySelector('.folder-tab'), folderBody = document.getElementById('archive-body');
   folderTab.addEventListener('click', function () { var o = folder.classList.toggle('open'); folderTab.setAttribute('aria-expanded', o); folderBody.setAttribute('aria-hidden', !o); });
 
@@ -356,8 +382,9 @@
       ' w = mix(w, vec3(0.870, 0.810, 0.640), smoothstep(2.0, 3.0, p));',
       ' w = mix(w, vec3(0.760, 0.800, 0.900), smoothstep(3.0, 4.0, p));',
       ' w = mix(w, vec3(0.720, 0.850, 0.760), smoothstep(4.0, 5.0, p));',
-      ' w = mix(w, vec3(0.870, 0.800, 0.720), smoothstep(5.0, 6.0, p));',
-      ' w = mix(w, vec3(0.800, 0.775, 0.870), smoothstep(6.0, 7.0, p)); return w; }',
+      ' w = mix(w, vec3(0.760, 0.790, 0.880), smoothstep(5.0, 6.0, p));',
+      ' w = mix(w, vec3(0.870, 0.800, 0.720), smoothstep(6.0, 7.0, p));',
+      ' w = mix(w, vec3(0.800, 0.775, 0.870), smoothstep(7.0, 8.0, p)); return w; }',
       'void main(){',
       ' vec2 uv = vUv; vec2 q = vec2(uv.x * uAspect, uv.y);',
       ' float n = snoise(q * 1.1 + vec2(uTime * 0.02, -uTime * 0.015));',
@@ -471,7 +498,12 @@
         if (rnd() < v) return { p: [r * Math.cos(th), r * Math.sin(th), (v - 0.4) * 0.35 + rr(-0.03, 0.03)], c: r < 0.65 ? VIO : (rnd() < 0.5 ? TEAL : NICK), a: [5, 0, 0], f: 0.55 };
       }
     }),
-    /* 6 crystal lattice behind the index */
+    /* 6 ribbon behind the experience timeline */
+    shape(function () {
+      var x = rr(-2.6, 2.6), w = rr(-0.42, 0.42), ph = x * 1.5;
+      return { p: [x, 0.55 * Math.sin(ph) + w * Math.cos(ph * 0.6), w * 1.4 * Math.sin(ph * 0.6) + 0.3 * Math.cos(ph)], c: Math.abs(w) > 0.36 ? GOLD : (rnd() < 0.5 ? VIO : TEAL), a: [6, 0, 0], f: 0.5 };
+    }),
+    /* 7 crystal lattice behind the index */
     shape(function () {
       var gi = Math.floor(rnd() * 7), gj = Math.floor(rnd() * 5), gk = Math.floor(rnd() * 3), s = 0.55;
       var c = [(gi - 3) * s, (gj - 2) * s, (gk - 1) * s], odd = (gi + gj + gk) % 2;
@@ -650,8 +682,8 @@
   var secs = Array.prototype.slice.call(document.querySelectorAll('.screen'));
   var W = 1, H = 1, mouse = { x: 0, y: 0, tx: 0, ty: 0 }, pSmooth = 0, time = 0, last = performance.now();
   var hudPh = document.getElementById('hud-ph'), hudRot = document.getElementById('hud-rot');
-  var posX = [1.9, 1.35, 0.75, 1.15, 1.2, 1.6, 3.15, 0], posY = [0.35, 0.35, 0.65, 0.5, 0.45, 0.4, 0.3, 0],
-      rotY = [0, -0.55, 0.2, 0.12, -0.3, 0.1, 0.55, 0], rotX = [0.28, 0.28, 0.28, 0.08, 0.3, -0.5, 0.35, 0.1], scl = [1, 1, 1, 0.9, 0.95, 1, 0.62, 1.2];
+  var posX = [1.9, 1.35, 0.75, 1.15, 1.2, 1.6, 3.3, 3.15, 0], posY = [0.35, 0.35, 0.65, 0.5, 0.45, 0.4, -0.2, 0.3, 0],
+      rotY = [0, -0.55, 0.2, 0.12, -0.3, 0.1, 1.2, 0.55, 0], rotX = [0.28, 0.28, 0.28, 0.08, 0.3, -0.5, 0.2, 0.35, 0.1], scl = [1, 1, 1, 0.9, 0.95, 1, 0.7, 0.62, 1.2];
   function lerpArr(a, seg, t) { return a[seg] + (a[seg + 1] - a[seg]) * t; }
   function resize() {
     W = window.innerWidth; H = window.innerHeight;
@@ -696,8 +728,8 @@
     var te = ts * ts * (3 - 2 * ts), w0 = Math.max(0, 1 - p);
     var sc = (narrow ? Math.min(1, W / 520) * 0.82 : Math.min(1.15, W / 1250 + 0.25)) * lerpArr(scl, seg, te);
     points.scale.setScalar(sc);
-    points.position.x = narrow ? 0 : lerpArr(posX, seg, te);
-    points.position.y = narrow ? 1.5 * Math.min(1, Math.max(0, S - 2 - p) * 2) : lerpArr(posY, seg, te);
+    points.position.x = narrow ? 0 : lerpArr(posX, seg, te) * Math.min(1, Math.max(0.55, (W - 560) / 760));
+    points.position.y = narrow ? lerpArr([1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 3.6, 0, 0], seg, te) : lerpArr(posY, seg, te);
     points.rotation.y = (w0 * spin + lerpArr(rotY, seg, te)) * (1 - face) + mouse.x * (0.35 - 0.2 * face);
     points.rotation.x = lerpArr(rotX, seg, te) * (1 - face) + mouse.y * (0.18 - 0.1 * face);
     points.updateMatrixWorld();
