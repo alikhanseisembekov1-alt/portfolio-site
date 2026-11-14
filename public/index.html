@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alikhan Seisembekov | Materials × Neuro × AI</title>
+<meta name="description" content="Alikhan Seisembekov, materials engineer: nanowire biosensors, neural signal analysis, and AI agents for materials discovery. MEng, University of Toronto.">
+<meta name="theme-color" content="#ebe6da">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Alikhan Seisembekov | Materials × Neuro × AI">
+<meta property="og:description" content="Alikhan Seisembekov, materials engineer: nanowire biosensors, neural signal analysis, and AI agents for materials discovery. MEng, University of Toronto.">
+<meta property="og:image" content="https://portfolio-site-theta-ebon.vercel.app/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Doto:wght@900&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<canvas id="stage" aria-hidden="true"></canvas>
+<svg id="callouts" aria-hidden="true"></svg>
+
+<header class="bar">
+  <a class="name" href="#home">Alikhan Seisembekov</a>
+  <nav aria-label="Sections">
+    <a href="#fet">Work</a><a href="#notes">Notes</a><a href="#about">Skills</a>
+    <details class="pop" id="contact-pop">
+      <summary>[ Contact ]</summary>
+      <div class="card">
+        <span class="sel" id="mail">alikhanseisembekov1@gmail.com</span>
+        <button type="button" class="brk" id="copy-mail">Copy email</button>
+        <a href="https://www.linkedin.com/in/alikhan-seisembekov-81874521a">LinkedIn</a>
+        <a href="https://github.com/alikhanseisembekov1-alt">GitHub</a>
+        <span class="fine">CV available on request.</span>
+      </div>
+    </details>
+    <button type="button" id="edition" aria-label="Change shimmer style">[ Foil ]</button>
+  </nav>
+</header>
+
+<div class="hud" aria-hidden="true">
+  <div id="hud-ph">pH 4.0</div>
+  <div id="hud-rot">ROT 000°</div>
+  <div id="hud-n">12 000 PARTICLES</div>
+</div>
+
+<nav class="rail" id="rail" aria-label="Page progress">
+  <a href="#home"><span>Home</span></a><a href="#fet"><span>01 Nanowire sensor</span></a><a href="#dbs"><span>02 Brain stimulation</span></a><a href="#agent"><span>03 Materials agent</span></a><a href="#wires"><span>04 Metal nanowires</span></a><a href="#lenia"><span>05 Artificial life</span></a><a href="#more"><span>Index</span></a><a href="#about"><span>Skills and contact</span></a>
+</nav>
+
+<div id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet-in">
+    <div class="sheet-top"><span class="meta" id="sheet-kicker"></span><div class="sheet-nav"><button type="button" class="brk" id="sheet-prev">[ ← Prev ]</button><button type="button" class="brk" id="sheet-next">[ Next → ]</button><button type="button" class="brk" id="sheet-close">[ Close ]</button></div></div>
+    <h2 id="sheet-title"></h2>
+    <div class="sheet-grid"><div class="sheet-col" id="sheet-main"></div><div class="sheet-col" id="sheet-side"></div></div>
+    <div class="sheet-meta" id="sheet-meta"></div>
+  </div>
+</div>
+
+<template id="tpl-sem-column">
+<svg class="dia" viewBox="0 0 420 500" role="img" aria-label="Diagram of a scanning electron microscope column. From top to bottom: electron gun, anode, condenser lens, aperture, scan coils, objective lens, then the sample on its stage in a vacuum chamber, with a backscatter detector above the sample, a secondary-electron detector to one side and an X-ray detector to the other.">
+  <rect class="box" x="150" y="24" width="120" height="300"/>
+  <rect class="box" x="90" y="324" width="240" height="160"/>
+  <path class="beam" d="M210 50 L196 118 L210 170 L194 292 L210 418 L226 292 L210 170 L224 118 Z"/>
+  <path class="ink" d="M198 34 h24 l-12 16 z"/>
+  <rect class="ink" x="170" y="64" width="30" height="5"/><rect class="ink" x="220" y="64" width="30" height="5"/>
+  <rect class="ln" x="158" y="108" width="30" height="20"/><rect class="ln" x="232" y="108" width="30" height="20"/>
+  <path class="ln" d="M158 108 l30 20 M188 108 l-30 20 M232 108 l30 20 M262 108 l-30 20"/>
+  <rect class="ink" x="170" y="188" width="34" height="4"/><rect class="ink" x="216" y="188" width="34" height="4"/>
+  <rect class="ln" x="162" y="226" width="22" height="22"/><rect class="ln" x="236" y="226" width="22" height="22"/>
+  <rect class="ln" x="154" y="282" width="34" height="22"/><rect class="ln" x="232" y="282" width="34" height="22"/>
+  <path class="ln" d="M154 282 l34 22 M188 282 l-34 22 M232 282 l34 22 M266 282 l-34 22"/>
+  <rect class="ink" x="160" y="336" width="38" height="6"/><rect class="ink" x="222" y="336" width="38" height="6"/>
+  <rect class="ink" x="176" y="418" width="68" height="10"/><rect class="ln" x="150" y="428" width="120" height="12"/>
+  <rect class="ln" x="98" y="376" width="30" height="22"/><path class="ln" d="M106 376 v22 M113 376 v22 M120 376 v22"/>
+  <path class="se" d="M206 416 Q160 378 130 387"/>
+  <rect class="ln" x="292" y="368" width="30" height="18" transform="rotate(-25 307 377)"/>
+  <path class="xr" d="M214 416 q10 -12 20 -8 t20 -8 t20 -8 t16 -6"/>
+  <path class="lead" d="M224 40 H286 M262 118 H286 M258 237 H286 M260 339 H330 M140 67 H168 M140 190 H168 M140 293 H152"/>
+  <text class="b" x="290" y="44">Electron gun</text>
+  <text class="b" x="290" y="122">Condenser lens</text>
+  <text class="b" x="290" y="236">Scan coils</text><text x="290" y="249">raster the beam</text>
+  <text class="b" x="334" y="343">BSE</text><text x="334" y="357">detector</text>
+  <text class="b" x="334" y="384">X-ray (EDS)</text><text x="334" y="398">detector</text>
+  <text class="b" x="136" y="71" text-anchor="end">Anode</text>
+  <text class="b" x="136" y="194" text-anchor="end">Aperture</text>
+  <text class="b" x="136" y="297" text-anchor="end">Objective lens</text>
+  <text class="b" x="86" y="372" text-anchor="end">SE detector</text>
+  <text class="b" x="210" y="458" text-anchor="middle">Sample on stage</text>
+  <text x="102" y="474" font-style="italic">vacuum</text>
+</svg>
+</template>
+<template id="tpl-sem-volume">
+<svg class="dia" viewBox="0 0 360 210" role="img" aria-label="Diagram of the teardrop-shaped volume under the surface where the beam interacts with the sample. Secondary electrons escape only from the top few nanometres, backscattered electrons from deeper, and X-rays from the whole volume.">
+  <path class="box" d="M110 50 C80 60 40 110 50 150 C60 195 160 195 170 150 C180 110 140 60 110 50 Z"/>
+  <path class="ln" d="M14 50 H206"/>
+  <path class="beam" d="M106 8 h8 v42 h-8 z"/>
+  <ellipse cx="110" cy="55" rx="14" ry="5" fill="var(--rose)"/>
+  <path class="se" d="M72 105 Q110 138 148 105"/>
+  <path class="lead" d="M124 56 L192 60 M150 106 L192 106 M168 160 L192 162"/>
+  <text x="120" y="20">beam</text>
+  <text x="16" y="44">surface</text>
+  <text class="b" x="196" y="64">Secondary electrons</text><text x="196" y="77">top few nm</text>
+  <text class="b" x="196" y="110">Backscattered</text><text x="196" y="123">deeper; heavy</text><text x="196" y="136">elements brighter</text>
+  <text class="b" x="196" y="166">X-rays</text><text x="196" y="179">whole volume,</text><text x="196" y="192">up to about 1 µm</text>
+</svg>
+</template>
+<template id="tpl-eis">
+<svg class="dia" viewBox="0 0 420 450" role="img" aria-label="Two sketches. Top, a Nyquist plot: the curve starts on the horizontal axis at the series resistance, rises through a semicircle for charge transfer, continues as a 45 degree line for diffusion and ends as a near-vertical line for capacitive behaviour. Bottom, cyclic voltammetry curves: a box shape for a capacitor and a curve with peaks for a redox reaction.">
+  <path class="ln" d="M60 30 V200 H392"/>
+  <path class="r" d="M100 200 A60 60 0 0 1 220 200 L270 150 L282 44"/>
+  <circle class="dotf" cx="100" cy="200" r="3.5"/>
+  <path class="lead" d="M100 204 V218 M160 138 V124 M276 100 H300"/>
+  <text x="22" y="26">−Z″</text><text x="392" y="216" text-anchor="end">Z′</text>
+  <text x="100" y="22">high frequency</text><text x="392" y="22" text-anchor="end">low frequency</text>
+  <text class="b" x="66" y="232">Series resistance (ESR)</text>
+  <text class="b" x="160" y="118" text-anchor="middle">Charge transfer</text>
+  <text class="b" x="292" y="182">Diffusion, 45°</text>
+  <text class="b" x="304" y="104">Capacitive</text>
+  <path class="ln" d="M60 268 V430 H392"/>
+  <path class="ln dash" d="M92 384 L102 312 L362 304 L352 376 Z"/>
+  <path class="r" d="M92 350 C150 350 172 350 202 306 C218 282 232 334 300 340 L362 340 M362 356 C300 356 272 356 242 398 C226 418 212 362 150 358 L92 358"/>
+  <text x="22" y="264">Current</text><text x="392" y="446" text-anchor="end">Voltage</text>
+  <text class="b" x="262" y="296">box: capacitor</text>
+  <text class="b" x="196" y="278" text-anchor="middle" style="fill:var(--rose)">peaks: redox reaction</text>
+</svg>
+</template>
+<template id="tpl-xrd">
+<svg class="dia" viewBox="0 0 420 440" role="img" aria-label="Two sketches. Top, Bragg diffraction: X-rays reflect off two parallel planes of atoms a distance d apart at angle theta, and the lower ray travels an extra path of two d sine theta. Bottom, a diffraction pattern of intensity against angle, with sharp peaks for large crystals and broad peaks for small crystallites.">
+  <path class="lead" d="M50 90 H370 M50 140 H370 M50 190 H370"/>
+  <g class="dotf"><circle cx="90" cy="90" r="4"/><circle cx="150" cy="90" r="4"/><circle cx="210" cy="90" r="4"/><circle cx="270" cy="90" r="4"/><circle cx="330" cy="90" r="4"/><circle cx="90" cy="140" r="4"/><circle cx="150" cy="140" r="4"/><circle cx="210" cy="140" r="4"/><circle cx="270" cy="140" r="4"/><circle cx="330" cy="140" r="4"/><circle cx="90" cy="190" r="4"/><circle cx="150" cy="190" r="4"/><circle cx="210" cy="190" r="4"/><circle cx="270" cy="190" r="4"/><circle cx="330" cy="190" r="4"/></g>
+  <path class="r" d="M90 30 L210 90 L330 30 M90 80 L210 140 L330 80"/>
+  <path class="ln" d="M168 90 A42 42 0 0 1 172 71"/>
+  <path class="ln" d="M386 92 V138 M382 98 L386 92 L390 98 M382 132 L386 138 L390 132"/>
+  <text class="b" x="148" y="84">θ</text><text class="b" x="394" y="120">d</text>
+  <text x="60" y="24">X-rays in</text><text x="360" y="24" text-anchor="end">out</text>
+  <text class="b" x="210" y="222" text-anchor="middle">extra path = 2d sin θ = nλ</text>
+  <path class="ln" d="M50 262 V412 H392"/>
+  <path class="ln" d="M50 402 H112 L117 292 L122 402 H190 L195 332 L200 402 H270 L274 352 L278 402 H392"/>
+  <path class="r dash" d="M50 406 C96 406 100 336 117 336 C134 336 140 406 168 406 C184 406 186 368 195 368 C204 368 210 406 248 406 C262 406 266 382 274 382 C282 382 290 406 392 406"/>
+  <text x="22" y="258">Intensity</text><text x="392" y="430" text-anchor="end">Angle 2θ</text>
+  <text class="b" x="132" y="290">sharp: large crystals</text>
+  <text class="b" x="214" y="372" style="fill:var(--rose)">broad: small crystallites</text>
+</svg>
+</template>
+<template id="tpl-dls">
+<svg class="dia" viewBox="0 0 420 530" role="img" aria-label="Three sketches. Top, a DLS instrument: a laser passes through a cuvette of particles and a detector to the side feeds a correlator. Middle, two intensity traces: small particles flicker quickly, large particles slowly. Bottom, UV-Vis absorbance spectra of gold nanoparticles: a peak near 520 nanometres that shifts toward red and broadens for larger or clumped particles.">
+  <rect class="box" x="20" y="58" width="72" height="32"/><text class="b" x="56" y="79" text-anchor="middle">Laser</text>
+  <path class="r" d="M92 74 H286"/>
+  <rect class="box" x="200" y="40" width="52" height="70"/>
+  <g class="dotf"><circle cx="214" cy="58" r="2.5"/><circle cx="236" cy="66" r="2.5"/><circle cx="222" cy="84" r="2.5"/><circle cx="240" cy="96" r="2.5"/><circle cx="210" cy="100" r="2.5"/></g>
+  <path class="r dash" d="M226 76 V168"/>
+  <rect class="box" x="190" y="168" width="72" height="28"/><text class="b" x="226" y="187" text-anchor="middle">Detector</text>
+  <path class="ln" d="M262 182 H300"/>
+  <rect class="box" x="300" y="168" width="100" height="28"/><text class="b" x="350" y="187" text-anchor="middle">Correlator</text>
+  <text x="258" y="36">sample in liquid</text>
+  <path class="ln" d="M150 268 l8 -14 l8 20 l8 -18 l8 16 l8 -22 l8 24 l8 -16 l8 12 l8 -20 l8 22 l8 -14 l8 16 l8 -20 l8 18 l8 -12 l8 14 l8 -18 l8 16 l8 -10 l8 12 l8 -16 l8 14 l8 -12 l8 10 l8 -14 l8 16 l8 -8 l8 6"/>
+  <path class="ln" d="M150 335 C180 300 200 300 225 335 S270 370 300 335 S350 300 390 330"/>
+  <text class="b" x="20" y="262">Small particles</text><text x="20" y="276">fast flicker</text>
+  <text class="b" x="20" y="330">Large particles</text><text x="20" y="344">slow flicker</text>
+  <path class="ln" d="M60 392 V500 H392 M200 500 v6"/>
+  <path class="ln" d="M60 482 C140 480 170 404 200 404 C230 404 250 480 392 490"/>
+  <path class="r dash" d="M60 486 C150 484 190 424 236 424 C282 424 312 482 392 488"/>
+  <text x="22" y="388">Absorbance</text><text x="392" y="520" text-anchor="end">Wavelength</text><text x="200" y="520" text-anchor="middle">520 nm</text>
+  <text class="b" x="70" y="452">smaller gold</text>
+  <text class="b" x="262" y="418" style="fill:var(--rose)">larger or clumped</text>
+</svg>
+</template>
+<img id="img-lenia-tl" src="/assets/img/lenia-timelapse.jpg" alt="Five frames from a Lenia simulation at steps 40 to 200: a noisy field resolves into separate ring-shaped organisms that then hold their shape" hidden>
+<img id="img-sem" src="/assets/img/sem-nanowires.jpg" alt="Electron microscope image of released metal nanowires lying on a surface" hidden>
+<img id="img-pores" src="/assets/img/sem-pores.jpg" alt="Electron microscope image of a membrane surface densely covered in small dark pores" hidden>
+
+<main id="root" data-lens="research">
+  <section class="screen" id="home">
+    <div class="hello">
+      <figure class="photo" style="--rot: -3deg">
+        <img class="pic tall" src="/assets/img/headshot.jpg" alt="Alikhan Seisembekov, smiling, wearing glasses and a navy blazer in a bright corridor">
+      </figure>
+      <div class="hello-txt">
+        <p class="meta">Toronto, ON<br><i>MEng Materials Science and Engineering | University of Toronto | 2027</i></p>
+        <p class="lede r">I'm a materials engineer finishing a Master of Engineering at the University of Toronto, after a Nanotechnology Engineering degree at Waterloo. I build nanowire biosensors, analyse recordings from human neurons, and write AI agents that read the materials literature.</p>
+        <p class="lede i">I'm a materials engineer with 18 months of co-op R&amp;D in medical devices, optics and battery materials, now finishing a Master of Engineering at the University of Toronto. I build and test sensors, automate measurements, and ship analysis pipelines.</p>
+      </div>
+    </div>
+    <h1>Materials <span class="x">×</span><br>Neuro <span class="x">×</span> AI</h1>
+    <div class="stats r">
+      <div><b>115</b><span>human neurons analysed across 749 recordings</span></div>
+      <div><b>87.5 → 100%</b><span>extraction accuracy with a physics validator, pilot test</span></div>
+      <div><b>0.28 → 0.72</b><span>fitness, evolving artificial life from noise</span></div>
+    </div>
+    <div class="stats i">
+      <div><b>66%</b><span>less sensor calibration time at FluidAI Medical</span></div>
+      <div><b>50+</b><span>medical sensors validated to ISO 13485</span></div>
+      <div><b>100+</b><span>thermal test cycles analysed at Christie Digital</span></div>
+    </div>
+    <div class="actions">
+      <div class="lens" role="group" aria-label="Choose a view">
+        <button type="button" id="lens-research" aria-pressed="true">Research</button>
+        <button type="button" id="lens-industry" aria-pressed="false">Industry</button>
+      </div>
+      <a class="brk" href="#about">[ Skip to summary ]</a>
+    </div>
+    <p class="hint">[ scroll ] <button type="button" class="brk" id="replay" hidden>[ Replay intro ]</button></p>
+  </section>
+
+  <section class="screen" id="fet">
+    <div class="counter">[ 01 / 05 ]</div>
+    <h2>InAs NANOWIRE FET SENSOR</h2>
+    <p class="meta">Sep 2026 – present<br><i>Ruda Group | University of Toronto</i></p>
+    <p class="lede r">A single semiconductor nanowire between two metal contacts. Molecules that land on the wire shift its current, so the device reads chemistry as an electrical signal.</p>
+    <p class="lede i">Hands-on cleanroom fabrication: nanowire drop-casting, optical inspection and bilayer photolithography, backed by 50+ ISFET sensors built to ISO 13485 at FluidAI Medical.</p>
+    <p class="readout r">STATUS: FABRICATION IN PROGRESS · MD SIMULATIONS OF THE INTERFACE</p>
+    <p class="readout i">PHOTOLITHOGRAPHY · DEVICE TEST · PYTHON ANALYSIS</p>
+    <button type="button" class="brk" data-case="fet">[ Learn more ]</button>
+    <figure class="photo pin" style="--rot: 3deg">
+      <div class="pic slot">Photo slot<br>Micrograph of your drop-cast nanowires, once the group agrees</div>
+      <figcaption>Optical micrograph · scale bar</figcaption>
+    </figure>
+  </section>
+
+  <section class="screen" id="dbs">
+    <div class="counter">[ 02 / 05 ]</div>
+    <h2>DEEP BRAIN STIMULATION</h2>
+    <p class="meta">Oct 2026 – present<br><i>Human microelectrode recordings | Milosevic et al. 2021 dataset</i></p>
+    <p class="lede r">The same electrical pulse quiets some brain regions and excites others. I rebuilt the spike-detection pipeline to measure how each region responds as stimulation speeds up.</p>
+    <p class="lede i">A Python pipeline that cleans stimulation artifacts, fixes mislabelled files and turns 749 raw recordings into per-neuron firing rates.</p>
+    <div class="dial">
+      <label for="stim-freq"><span>Stimulation frequency</span><span id="stim-out">20 Hz</span></label>
+      <input type="range" id="stim-freq" min="0" max="8" step="1" value="5">
+      <div class="legend" id="dbs-read"></div>
+    </div>
+    <p class="readout">115 NEURONS · 749 RECORDINGS · 1–100 Hz</p>
+    <p class="fine">The neurons flash at rates scaled from my results: median firing rate as a share of baseline, for the 61 neurons that have a baseline recording.</p>
+    <button type="button" class="brk" data-case="dbs">[ Learn more ]</button>
+    <figure class="photo pin chart" style="--rot: -2deg">
+      <svg class="pic plot" id="dbs-chart" viewBox="0 0 300 225" role="img" aria-label="Line chart of median firing rate as a percentage of baseline at nine stimulation frequencies from 1 to 100 hertz. STN and SNr fall to 12 and 6 percent at 100 hertz. Vim and Rt rise."></svg>
+      <figcaption>Median firing rate, % of baseline · my analysis</figcaption>
+    </figure>
+  </section>
+
+  <section class="screen" id="agent">
+    <div class="counter">[ 03 / 05 ]</div>
+    <h2>MAGNETIC-MATERIALS AGENT</h2>
+    <p class="meta">Sep 2026 – present<br><i>LangGraph · Claude API | University of Toronto</i></p>
+    <p class="lede r">An AI agent that reads magnet papers and pulls out the numbers that matter, then checks them against physics before trusting them.</p>
+    <p class="lede i">A multi-step LLM pipeline with structured outputs, automated validation and an accuracy benchmark, version-controlled on GitHub.</p>
+    <p class="readout">FAULT-INJECTION PILOT: 87.5% → 100% ACCURACY</p>
+    <button type="button" class="brk" data-case="agent">[ Learn more ]</button>
+    <figure class="photo pin" style="--rot: 2.5deg">
+      <div class="pic slot">Photo slot<br>Screenshot of the graph in LangSmith Studio</div>
+      <figcaption>Extractor graph · validator loop</figcaption>
+    </figure>
+  </section>
+
+  <section class="screen" id="wires">
+    <div class="counter">[ 04 / 05 ]</div>
+    <h2>MULTI-SEGMENT METAL NANOWIRES</h2>
+    <p class="meta">Fall 2025<br><i>NE 454D Nanomaterials Lab | University of Waterloo</i></p>
+    <p class="lede r">Eight metal segments grown one after another inside 200 nm pores. Each segment's length is set by counting the electrical charge passed.</p>
+    <p class="lede i">Template electrodeposition with charge-based process control, selective etching for release, and SEM checks against the design.</p>
+    <p class="readout">15–20 µm LONG · 200–250 nm WIDE · Ag–Pd–Au–Ni</p>
+    <button type="button" class="brk" data-case="wires">[ Learn more ]</button>
+    <figure class="photo pin poly gallery" style="--rot: -2.5deg" data-set="wires"></figure>
+  </section>
+
+  <section class="screen" id="lenia">
+    <div class="counter">[ 05 / 05 ]</div>
+    <h2>EVOLVING ARTIFICIAL LIFE</h2>
+    <p class="meta">Winter 2026<br><i>Independent paper | University of Waterloo</i></p>
+    <p class="lede r">Lenia is a continuous cousin of Conway's Game of Life. I evolved its rules until random noise grew into target shapes, then tested whether those shapes could heal.</p>
+    <p class="lede i">An FFT-accelerated simulation and an evolutionary search over seven parameters, written from scratch in Python.</p>
+    <p class="readout">FITNESS 0.28 → 0.72 IN 60–80 GENERATIONS</p>
+    <button type="button" class="brk" data-case="lenia">[ Learn more ]</button>
+    <figure class="photo pin" style="--rot: 3deg">
+      <video class="pic sq" id="lenia-vid" src="/assets/video/lenia.mp4" poster="/assets/img/lenia-poster.jpg" muted loop playsinline autoplay aria-label="Animation of a Lenia world: random noise settles into a field of stable ring-shaped organisms"></video>
+      <figcaption>My simulation · rings forming from noise</figcaption>
+    </figure>
+  </section>
+
+  <section class="screen" id="more">
+    <div class="counter">[ INDEX ]</div>
+    <h2>EVERYTHING ELSE</h2>
+
+    <div class="block">
+      <h3>More projects</h3>
+      <div class="idx">
+        <div class="row"><span class="n">06</span><b>Learning to play: reinforcement vs. imitation learning on Atari Breakout</b><span class="ctx">MIE1517 Deep Learning · U of T · Fall 2026</span><span class="res">PyTorch · team of 4 · in progress</span></div>
+        <div class="row"><span class="n">07</span><b>Self-healing dental composite</b><span class="ctx">Capstone, team lead · Waterloo · 2024–26</span><span class="res">~40 µm microcapsules · target ≥65% healing</span></div>
+        <div class="row"><span class="n">08</span><b>Carbon nanomaterial supercapacitor</b><span class="ctx">NE 455D lab · Waterloo · Winter 2026</span><span class="res">92 F/g · ESR 1.4 Ω · 3.2 Wh/kg</span></div>
+        <div class="row"><span class="n">09</span><b>PDMS microfluidic reactor for gold nanoparticles</b><span class="ctx">NE 454C lab · Waterloo · Fall 2025</span><span class="res">33–50 nm particles by DLS</span></div>
+        <div class="row"><span class="n">10</span><b>Brain organoid-on-chip: review and proposal</b><span class="ctx">NE 487 Microfluidics · Waterloo · Winter 2026</span><span class="res">Dual-gradient SHH/WNT device concept</span></div>
+        <div class="row"><span class="n">11</span><b>Monte Carlo simulator of sputter deposition</b><span class="ctx">Waterloo Hacker Fab · 2024–25</span><span class="res">10⁵+ particle trajectories on GPU</span></div>
+        <div class="row"><span class="n">12</span><b>Battery materials research</b><span class="ctx">Institute of Batteries · Astana · 2023</span><span class="res">50+ cells · 3 invention disclosures</span></div>
+      </div>
+    </div>
+
+    <div class="folder" id="archive">
+      <button type="button" class="folder-tab" aria-expanded="false" aria-controls="archive-body"><span class="tab-lip" aria-hidden="true"></span><span>Archive</span><span class="ctx">2021–2025 · earlier coursework and team projects</span><span class="count">3</span><span class="chev" aria-hidden="true">+</span></button>
+      <div class="folder-body" id="archive-body" aria-hidden="true"><div class="folder-in idx">
+        <div class="row"><span class="n">13</span><b>Attention-state classification</b><span class="ctx">SYDE 522 · Waterloo · 2025</span><span class="res">87% F1</span></div>
+        <div class="row"><span class="n">14</span><b>Monte Carlo radiation transport</b><span class="ctx">NE 451 · Waterloo · 2024</span><span class="res">Within 5% of analytical models</span></div>
+        <div class="row"><span class="n">15</span><b>Radiation shielding nanomaterials</b><span class="ctx">Waterloo Rocketry payload team · 2021–22</span><span class="res">BNNT vs. Gd₂O₃ comparison</span></div>
+      </div></div>
+    </div>
+
+    <div class="block" id="notes">
+      <h3>Field notes</h3>
+      <div class="idx">
+        <button type="button" class="row note" data-note="sem"><span class="n">N1</span><b>How a scanning electron microscope works</b><span class="ctx">Characterization · with my own images</span><span class="res">Read the note →</span></button>
+        <button type="button" class="row note" data-note="eis"><span class="n">N2</span><b>Reading a cell with impedance and cyclic voltammetry</b><span class="ctx">Electrochemistry · with my supercapacitor results</span><span class="res">Read the note →</span></button>
+        <button type="button" class="row note" data-note="xrd"><span class="n">N3</span><b>What an X-ray diffraction pattern tells you</b><span class="ctx">Characterization · crystal structure</span><span class="res">Read the note →</span></button>
+        <button type="button" class="row note" data-note="dls"><span class="n">N4</span><b>Sizing nanoparticles with light: DLS and UV–Vis</b><span class="ctx">Characterization · with my gold nanoparticle results</span><span class="res">Read the note →</span></button>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Competitions and honours</h3>
+      <ul class="list">
+        <li><span class="yr">2024</span><span><b>Engineering hackathon.</b> Built an ESP32-controlled robotic arm with grappling control.</span></li>
+        <li><span class="yr">2023</span><span><b>Toyota Innovation Challenge.</b> Deep-learning vision model for part inspection, driving a robotic sticker applicator.</span></li>
+        <li><span class="yr">2022</span><span><b>University of Waterloo President's Scholarship.</b></span></li>
+        <li><span class="yr">2020</span><span><b>Esotero Business Competition, 4th place.</b></span></li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>Manuscripts and reports</h3>
+      <ul class="list">
+        <li><span class="yr">2026</span><span><b>Evolving morphogenetic dynamics in Lenia-like continuous cellular automata.</b> Unpublished manuscript, University of Waterloo.</span></li>
+        <li><span class="yr">2023</span><span><b>Three technical invention disclosures</b> on Li/Ni extraction and NCM811 cathode doping, Institute of Batteries.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="screen" id="about">
+    <h2>SKILLS, EDUCATION, CONTACT</h2>
+
+
+    <div class="block">
+      <h3>Periodic table of skills</h3>
+      <div class="table" id="table">
+        <button type="button" class="tile fab" data-used="Nanowire FET sensor · Ruda Group"><span class="sym">Ph</span><span class="nm">Photolithography</span></button>
+        <button type="button" class="tile fab" data-used="Battery electrodes · Institute of Batteries"><span class="sym">Sp</span><span class="nm">Sputtering, PECVD</span></button>
+        <button type="button" class="tile fab" data-used="Microfluidic reactor for gold nanoparticles · NE 454C"><span class="sym">Sl</span><span class="nm">Soft lithography</span></button>
+        <button type="button" class="tile fab" data-used="Multi-segment metal nanowires · NE 454D"><span class="sym">Ed</span><span class="nm">Electrodeposition</span></button>
+        <button type="button" class="tile fab" data-used="Microfluidic chip and mask layout"><span class="sym">Ac</span><span class="nm">AutoCAD</span></button>
+        <button type="button" class="tile chr" data-note="sem" data-used="Nanowires, microcapsules, battery cathodes"><span class="sym">Sm</span><span class="nm">SEM</span></button>
+        <button type="button" class="tile chr" data-note="eis" data-used="Supercapacitor and battery cells"><span class="sym">Ei</span><span class="nm">EIS, CV</span></button>
+        <button type="button" class="tile chr" data-note="dls" data-used="Gold nanoparticle sizing · NE 454C"><span class="sym">Dl</span><span class="nm">DLS, UV–Vis</span></button>
+        <button type="button" class="tile chr" data-used="Laser projector optics · Christie Digital"><span class="sym">Op</span><span class="nm">Optical metrology</span></button>
+        <button type="button" class="tile mlx" data-used="Reinforcement vs. imitation learning on Atari Breakout"><span class="sym">Pt</span><span class="nm">PyTorch</span></button>
+        <button type="button" class="tile mlx" data-used="Magnetic-materials extraction agent"><span class="sym">Lg</span><span class="nm">LangGraph</span></button>
+        <button type="button" class="tile mlx" data-used="Human DBS microelectrode recordings"><span class="sym">Sd</span><span class="nm">Spike detection</span></button>
+        <button type="button" class="tile mlx" data-used="Every project on this page"><span class="sym">Py</span><span class="nm">Python</span></button>
+        <button type="button" class="tile sim" data-used="Nanowire–electrolyte interface · Ruda Group"><span class="sym">Md</span><span class="nm">Molecular dynamics</span></button>
+        <button type="button" class="tile sim" data-used="Sputter deposition simulator · Waterloo Hacker Fab"><span class="sym">Mc</span><span class="nm">Monte Carlo</span></button>
+        <button type="button" class="tile sim" data-used="Self-healing dental composite · capstone"><span class="sym">Cm</span><span class="nm">COMSOL</span></button>
+      </div>
+      <div class="legend">
+        <span><span class="dot" style="background:var(--gold)"></span>Fabrication</span>
+        <span><span class="dot" style="background:var(--teal)"></span>Characterization</span>
+        <span><span class="dot" style="background:var(--violet)"></span>ML and signals</span>
+        <span><span class="dot" style="background:var(--rose)"></span>Simulation</span>
+      </div>
+      <p id="used" aria-live="polite">Hover or tap a tile to see where it was used. A tile marked “note” opens an explainer.</p>
+    </div>
+
+    <div class="block">
+      <h3>Education</h3>
+      <ul class="list">
+        <li><span class="yr">2026–27</span><span><b>University of Toronto.</b> Master of Engineering, Materials Science and Engineering. Deep learning, machine learning, biomaterials, neuromodulation.</span></li>
+        <li><span class="yr">2021–26</span><span><b>University of Waterloo.</b> BASc Nanotechnology Engineering, co-op. Specializations in AI and cognitive systems, and nano-biosystems.</span></li>
+      </ul>
+    </div>
+
+    <div class="block jobs-block">
+      <h3>Industry R&amp;D</h3>
+      <div class="jobs">
+        <div class="job"><b>FluidAI Medical</b><span>R&amp;D Engineering Associate · 2023–24</span><span>Cut sensor calibration time by 66%</span></div>
+        <div class="job"><b>Christie Digital</b><span>Optical Engineering · 2025</span><span>Focus-drift metrology across 100+ thermal cycles</span></div>
+        <div class="job"><b>Institute of Batteries</b><span>Research Assistant · 2023</span><span>Built 50+ cells, cycle life up 15%</span></div>
+        <div class="job"><b>Toronto Transit Commission</b><span>Access Control Administrator · 2022</span><span>Automated access reviews for 5,000+ accounts</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>From the bench</h3>
+      <div class="bench">
+        <figure class="photo poly" style="--rot: -2deg">
+          <img class="pic tall" src="/assets/img/chip.jpg" alt="A clear PDMS microfluidic chip with a serpentine channel, photographed on a dark bench">
+          <figcaption>PDMS microfluidic reactor · NE 454C</figcaption>
+        </figure>
+        <figure class="photo" style="--rot: 2deg">
+          <img class="pic tall" src="/assets/img/chip-cad.jpg" alt="AutoCAD drawing of the chip: three inlets, a round chamber and a serpentine channel">
+          <figcaption>The same chip in AutoCAD · three inlets, serpentine mixer</figcaption>
+        </figure>
+        <figure class="photo" style="--rot: -1deg">
+          <div class="pic slot">Photo slot<br>You in the lab or cleanroom</div>
+          <figcaption>More photos go here</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="contact">
+      <h3>Let's talk</h3>
+      <a class="sel" href="mailto:alikhanseisembekov1@gmail.com">alikhanseisembekov1@gmail.com</a>
+      <span><a href="https://www.linkedin.com/in/alikhan-seisembekov-81874521a">LinkedIn</a> · <a href="https://github.com/alikhanseisembekov1-alt">GitHub</a> · CV available on request</span>
+    </div>
+      <p class="fine foot">© 2026 Alikhan Seisembekov · <a href="#home">Back to top</a></p>
+  </section>
+</main>
+
+<script src="/assets/vendor/three.min.js"></script>
+<script src="/assets/site.js"></script>
+</body>
+</html>
