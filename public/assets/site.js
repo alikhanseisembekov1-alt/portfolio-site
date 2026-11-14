@@ -116,6 +116,16 @@
       approach: ['Automated the access-review reporting with Python and Excel VBA.', 'Covered accounts in Active Directory and on the IBM mainframe.'],
       result: 'Automated reviews for more than 5,000 accounts.', next: '',
       stack: ['Python', 'Excel VBA', 'Active Directory'], fig: { tpl: 'tpl-ttc', cap: 'From account lists to a review report' } },
+    uoft: { kind: 'job', heads: ['The program', 'What I am working on', 'Timeline'], meta: [['Degree', 'Master of Engineering'], ['When', 'Sep 2026 – Aug 2027'], ['Where', 'Toronto, Ontario']], title: 'UNIVERSITY OF TORONTO', kicker: 'Education · Materials Science and Engineering',
+      problem: 'A one-year, full-time Master of Engineering in Materials Science and Engineering. My courses and research sit where materials meet machine learning and the nervous system.',
+      approach: ['Courses in deep learning, machine learning, biomaterials and neuromodulation.', 'Building InAs nanowire FET sensors in Prof. Harry Ruda\'s group, from fabrication to simulation.', 'Building an LLM agent that extracts magnetic-property data from papers, with Vahid Attari.', 'Comparing reinforcement and imitation learning on Atari Breakout, as a deep-learning team project.'],
+      result: 'In progress. Expected completion in August 2027.', next: '',
+      stack: ['PyTorch', 'Photolithography', 'Molecular dynamics', 'LangGraph'], fig: { tpl: 'tpl-uoft', cap: 'A sketch of the front campus' } },
+    waterloo: { kind: 'job', heads: ['The program', 'What I did', 'Outcome'], meta: [['Degree', 'BASc, Nanotechnology Engineering'], ['When', '2021 – 2026'], ['Where', 'Waterloo, Ontario']], title: 'UNIVERSITY OF WATERLOO', kicker: 'Education · Nanotechnology Engineering, co-op',
+      problem: 'A five-year co-op engineering degree that alternates study terms with full-time work terms. I took specializations in AI and cognitive systems, and in nano-biosystems.',
+      approach: ['Worked four co-op terms: optics at Christie Digital, medical sensors at FluidAI, battery materials at the Institute of Batteries and IT at the TTC.', 'Led the capstone team on a self-healing dental composite.', 'Built a carbon-nanomaterial supercapacitor and a PDMS microfluidic reactor for gold nanoparticles in the fourth-year labs.', 'Wrote an independent paper on evolving artificial life in Lenia.', 'Wrote a Monte Carlo sputter-deposition simulator with Waterloo Hacker Fab, and compared shielding nanomaterials on the Waterloo Rocketry payload team.'],
+      result: 'Degree conferred in October 2026.', next: '',
+      stack: ['Cleanroom fabrication', 'Microfluidics', 'Python', 'Characterization'], fig: { tpl: 'tpl-uw', cap: 'A sketch of the nanotechnology building' } },
     lenia: { meta: [['Status', 'Done'], ['Role', 'Sole author'], ['Where', 'University of Waterloo']], title: 'EVOLVING ARTIFICIAL LIFE', kicker: '05 · Winter 2026 · Independent paper, University of Waterloo',
       problem: 'Can simple local rules be evolved to grow a target shape from noise? And does that shape then repair itself, as living tissue does?',
       approach: ['Wrote an FFT-accelerated Lenia simulation in Python.', 'Ran a (μ+λ) evolution strategy over a 7-dimensional space of kernel and growth parameters.', 'Scored target shapes with a composite fitness, then deleted parts of each organism to test self-repair.'],
@@ -145,7 +155,7 @@
     return fig;
   }
   Array.prototype.forEach.call(document.querySelectorAll('figure[data-set]'), function (f) { buildSet(f, f.getAttribute('data-set')); });
-  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia'], job: ['christie', 'fluidai', 'batteries', 'ttc'], note: ['sem', 'eis', 'xrd', 'dls'] };
+  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia'], job: ['uoft', 'christie', 'fluidai', 'batteries', 'ttc', 'waterloo'], note: ['sem', 'eis', 'xrd', 'dls'] };
   function fillMeta(c, stack) {
     sheetMeta.textContent = '';
     (c.meta || []).concat(stack ? [['Stack', stack.join(' ; ')]] : []).forEach(function (m) { var p = el('p'); p.appendChild(el('b', '', m[0])); p.appendChild(document.createTextNode(' : ' + m[1])); sheetMeta.appendChild(p); });
@@ -176,9 +186,10 @@
     var c = CASES[id]; if (!c) return;
     document.getElementById('sheet-title').textContent = c.title; document.getElementById('sheet-kicker').textContent = c.kicker;
     sheetMain.textContent = ''; sheetSide.textContent = '';
-    part(sheetMain, 'The problem', c.problem);
-    var ol = el('ol'); c.approach.forEach(function (a) { ol.appendChild(el('li', '', a)); }); part(sheetMain, 'What I did', ol);
-    part(sheetMain, 'Result', c.result);
+    var hd = c.heads || ['The problem', 'What I did', 'Result'];
+    part(sheetMain, hd[0], c.problem);
+    var ol = el('ol'); c.approach.forEach(function (a) { ol.appendChild(el('li', '', a)); }); part(sheetMain, hd[1], ol);
+    part(sheetMain, hd[2], c.result);
     if (c.next) part(sheetMain, 'Next', c.next);
     var fig = el('figure', 'photo' + (c.fig.chart ? ' chart' : '') + (c.fig.set ? ' poly' : ''));
     if (c.fig.set) { buildSet(fig, c.fig.set); }
