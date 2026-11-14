@@ -412,7 +412,7 @@
   }
 
   /* ---------- copy email ---------- */
-  var cpy = document.getElementById('copy-mail');
+  var cpy = document.getElementById('copy-end');
   cpy.addEventListener('click', function () {
     var m = 'alikhanseisembekov1@gmail.com';
     function done() { cpy.textContent = '[ Copied ]'; cpy.classList.add('ok'); setTimeout(function () { cpy.textContent = '[ Copy email ]'; cpy.classList.remove('ok'); }, 1800); }
