@@ -298,7 +298,7 @@
     c.side.forEach(function (sd) { var f = el('figure', 'photo chart'); f.appendChild(document.getElementById(sd.tpl).content.cloneNode(true)); f.appendChild(el('figcaption', '', sd.cap)); f.style.setProperty('--rot', '0deg'); sheetSide.appendChild(f); });
     fillMeta(c, null); showSheet('note', id);
   }
-  Array.prototype.forEach.call(document.querySelectorAll('[data-note]'), function (b) { b.addEventListener('click', function () { sheetFrom = b; openNote(b.getAttribute('data-note')); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-note]:not(.tile)'), function (b) { b.addEventListener('click', function () { sheetFrom = b; openNote(b.getAttribute('data-note')); }); });
 
   var tl = document.getElementById('timeline');
   if (window.IntersectionObserver && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
@@ -346,11 +346,95 @@
   var lite = window.innerWidth < 700 || (navigator.deviceMemory && navigator.deviceMemory <= 4) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
   var N = lite ? 6000 : 12000;
   document.getElementById('hud-n').textContent = (N === 6000 ? '6 000' : '12 000') + ' PARTICLES';
-  var used = document.getElementById('used');
-  Array.prototype.forEach.call(document.querySelectorAll('.tile'), function (t) {
-    function show() { used.textContent = t.querySelector('.nm').textContent + ' → ' + t.getAttribute('data-used'); }
-    t.addEventListener('pointerenter', show); t.addEventListener('focus', show); t.addEventListener('click', show);
+  /* ---------- skills: readout, pin, filters, link to the 3D scenes ---------- */
+  var table = document.getElementById('table'), ro = document.getElementById('readout'), tiles = Array.prototype.slice.call(table.querySelectorAll('.tile')), pinned = null;
+  var FAMN = { fab: 'Fabrication', chr: 'Characterization', mlx: 'ML and signals', sim: 'Simulation' };
+  var CASEN = { fet: 'Nanowire FET', dbs: 'DBS recordings', agent: 'Materials agent', wires: 'Metal nanowires', lenia: 'Artificial life', batteries: 'Institute of Batteries', christie: 'Christie Digital', fluidai: 'FluidAI Medical' };
+  var NOTEN = { sem: 'SEM explainer', eis: 'EIS and CV explainer', dls: 'DLS explainer' };
+  var SHAPE_OF = { fet: 1, dbs: 2, agent: 3, wires: 4, lenia: 5 };
+  window.skillShape = 0;
+  function famOf(t) { return ['fab', 'chr', 'mlx', 'sim'].filter(function (f) { return t.classList.contains(f); })[0]; }
+  function goTarget(g) {
+    var k = g.split(':');
+    if (k[0] === 'case') { sheetFrom = ro; openCase(k[1]); }
+    else if (k[0] === 'note') { sheetFrom = ro; openNote(k[1]); }
+    else if (k[0] === 'bench') document.getElementById('bench').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  }
+  function showTile(t) {
+    tiles.forEach(function (x) { x.classList.toggle('on', x === t); });
+    table.classList.toggle('focus', !!t);
+    var sym = ro.querySelector('.rsym'), nm = ro.querySelector('.rname'), fm = ro.querySelector('.rfam'), us = ro.querySelector('.rused');
+    us.textContent = '';
+    if (!t) { ro.className = 'idle'; ro.style.removeProperty('--fam'); sym.textContent = '?'; nm.textContent = 'Pick an element'; fm.textContent = 'Hover or tap a tile to see where it was used. Click it to keep it selected, then open the project.'; window.skillShape = 0; return; }
+    ro.className = ''; ro.style.setProperty('--fam', getComputedStyle(t).getPropertyValue('--fam'));
+    sym.textContent = t.querySelector('.sym').textContent; nm.textContent = t.querySelector('.nm').textContent.replace(/ · note$/, '');
+    fm.textContent = FAMN[famOf(t)] + ' · ' + t.getAttribute('data-used');
+    var go = (t.getAttribute('data-go') || '').split('|').filter(Boolean), first = 0;
+    go.forEach(function (g) {
+      var k = g.split(':'), label = k[0] === 'case' ? CASEN[k[1]] : k[0] === 'note' ? NOTEN[k[1]] : 'See the chip below';
+      var b = el('button', '', label); b.type = 'button'; b.addEventListener('click', function () { goTarget(g); }); us.appendChild(b);
+      if (!first && k[0] === 'case' && SHAPE_OF[k[1]]) first = SHAPE_OF[k[1]];
+    });
+    if (!go.length) us.appendChild(el('span', '', 'Coursework and labs'));
+    window.skillShape = first;
+  }
+  tiles.forEach(function (t, i) {
+    t.style.setProperty('--d', (i * 0.035).toFixed(3) + 's'); t.setAttribute('aria-pressed', 'false');
+    t.addEventListener('pointerenter', function () { showTile(t); });
+    t.addEventListener('focus', function () { showTile(t); });
+    t.addEventListener('click', function (e) {
+      if (t.hasAttribute('data-note')) e.stopImmediatePropagation();
+      var same = pinned === t; if (pinned) pinned.setAttribute('aria-pressed', 'false');
+      pinned = same ? null : t; if (pinned) pinned.setAttribute('aria-pressed', 'true');
+      showTile(pinned || t);
+    });
   });
+  table.addEventListener('pointerleave', function () { showTile(pinned); });
+  var famBtns = Array.prototype.slice.call(document.querySelectorAll('#fams button'));
+  famBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-fam'), on = table.getAttribute('data-filter') === f;
+      famBtns.forEach(function (x) { x.setAttribute('aria-pressed', String(!on && x === b)); });
+      if (on) table.removeAttribute('data-filter'); else table.setAttribute('data-filter', f);
+      tiles.forEach(function (t) { t.classList.toggle('hit', !on && t.classList.contains(f)); });
+    });
+  });
+
+  /* ---------- bench slider ---------- */
+  var cmp = document.getElementById('compare'), cmpIn = cmp.querySelector('input'), swept = false;
+  function setCut(v) { cmp.style.setProperty('--cut', v + '%'); cmpIn.value = v; }
+  cmpIn.addEventListener('input', function () { swept = true; setCut(+cmpIn.value); });
+  if (window.IntersectionObserver && !reduce) {
+    new IntersectionObserver(function (es, ob) { es.forEach(function (e) {
+      if (!e.isIntersecting) return; ob.disconnect(); var t0 = null;
+      (function step(now) { if (swept) return; if (t0 === null) t0 = now; var u = Math.min(1, (now - t0) / 2200), v = 50 + 38 * Math.sin(u * Math.PI * 2) * (1 - u); setCut(v.toFixed(1)); if (u < 1) requestAnimationFrame(step); })(performance.now());
+    }); }, { threshold: 0.6 }).observe(cmp);
+  }
+
+  /* ---------- copy email ---------- */
+  var cpy = document.getElementById('copy-mail');
+  cpy.addEventListener('click', function () {
+    var m = 'alikhanseisembekov1@gmail.com';
+    function done() { cpy.textContent = '[ Copied ]'; cpy.classList.add('ok'); setTimeout(function () { cpy.textContent = '[ Copy email ]'; cpy.classList.remove('ok'); }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(m).then(done, function () { window.location.href = 'mailto:' + m; });
+    else window.location.href = 'mailto:' + m;
+  });
+
+  /* ---------- reveal: tiles stagger in, headings scramble once ---------- */
+  if (window.IntersectionObserver && !reduce) {
+    table.classList.add('anim');
+    new IntersectionObserver(function (es, ob) { es.forEach(function (e) { if (e.isIntersecting) { table.classList.add('in'); ob.disconnect(); setTimeout(function () { table.classList.remove('anim', 'in'); }, 1400); } }); }, { threshold: 0.2 }).observe(table);
+    var G2 = 'ABCDEFGHIKLMNOPRSTUVXZ';
+    var hob = new IntersectionObserver(function (es) { es.forEach(function (e) {
+      if (!e.isIntersecting) return; hob.unobserve(e.target);
+      var h = e.target, full = h.textContent, step = 0, iv = setInterval(function () {
+        step += 1; var out = '';
+        for (var i = 0; i < full.length; i++) out += (i < step || !/[A-Za-z]/.test(full[i])) ? full[i] : G2[Math.floor(Math.random() * G2.length)];
+        h.textContent = out; if (step >= full.length) { clearInterval(iv); h.textContent = full; }
+      }, 28);
+    }); }, { threshold: 0.6 });
+    Array.prototype.forEach.call(document.querySelectorAll('.screen > h2'), function (h) { hob.observe(h); });
+  }
 
   Array.prototype.forEach.call(document.querySelectorAll('.photo'), function (f) {
     f.addEventListener('pointermove', function (e) {
@@ -716,7 +800,7 @@
     }
     return 0;
   }
-  var tmp = new THREE.Vector3();
+  var tmp = new THREE.Vector3(), skT = 0, lastSk = 0, skPos = new THREE.Vector3(), skDir = new THREE.Vector3();
   function frame(now) {
     var dt = Math.min(0.05, (now - last) / 1000); last = now;
     if (!reduce) time += dt;
@@ -735,12 +819,23 @@
         else { intro.on = false; curSeg = -1; face = 0; t = ts; }
       }
     }
-    if (!intro.on) setSeg(seg);
+    var skK = window.skillShape || 0, onSk = !intro.on && p > S - 1.4 && skK > 0;
+    if (onSk) lastSk = skK;
+    skT += ((onSk ? 1 : 0) - skT) * (reduce ? 1 : 0.07);
+    if (!intro.on) { if (skT > 0.004 && lastSk) { setPair(shapes[S - 1], shapes[lastSk], 'sk' + lastSk); t = skT; } else setSeg(seg); }
     var te = ts * ts * (3 - 2 * ts), w0 = Math.max(0, 1 - p);
     var sc = (narrow ? Math.min(1, W / 520) * 0.82 : Math.min(1.15, W / 1250 + 0.25)) * lerpArr(scl, seg, te);
     points.scale.setScalar(sc);
     points.position.x = narrow ? 0 : lerpArr(posX, seg, te) * Math.min(1, Math.max(0.55, (W - 560) / 760));
     points.position.y = narrow ? lerpArr([1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 3.6, 0, 0], seg, te) : lerpArr(posY, seg, te);
+    if (skT > 0.004) {
+      var tr = table.getBoundingClientRect();
+      skPos.set(((tr.left + tr.width / 2) / W) * 2 - 1, 1 - ((tr.top + tr.height / 2) / H) * 2, 0.5).unproject(camera);
+      skDir.copy(skPos).sub(camera.position).normalize(); skPos.copy(camera.position).add(skDir.multiplyScalar(-camera.position.z / skDir.z));
+      var ke = skT * skT * (3 - 2 * skT);
+      points.position.x += (skPos.x - points.position.x) * ke; points.position.y += (skPos.y - points.position.y) * ke;
+      points.scale.setScalar(sc + ((narrow ? 0.55 : 0.85) - sc) * ke);
+    }
     points.rotation.y = (w0 * spin + lerpArr(rotY, seg, te)) * (1 - face) + mouse.x * (0.35 - 0.2 * face);
     points.rotation.x = lerpArr(rotX, seg, te) * (1 - face) + mouse.y * (0.18 - 0.1 * face);
     points.updateMatrixWorld();
