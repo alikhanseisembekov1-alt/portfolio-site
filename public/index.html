@@ -24,7 +24,7 @@
 <header class="bar">
   <a class="name" href="#home">Alikhan Seisembekov</a>
   <nav aria-label="Sections">
-    <a href="#fet">Work</a><a href="#notes">Notes</a><a href="#about">Skills</a>
+    <a href="#fet">Work</a><a href="#experience">Experience</a><a href="#notes">Notes</a><a href="#about">Skills</a>
     <details class="pop" id="contact-pop">
       <summary>[ Contact ]</summary>
       <div class="card">
@@ -46,7 +46,7 @@
 </div>
 
 <nav class="rail" id="rail" aria-label="Page progress">
-  <a href="#home"><span>Home</span></a><a href="#fet"><span>01 Nanowire sensor</span></a><a href="#dbs"><span>02 Brain stimulation</span></a><a href="#agent"><span>03 Materials agent</span></a><a href="#wires"><span>04 Metal nanowires</span></a><a href="#lenia"><span>05 Artificial life</span></a><a href="#more"><span>Index</span></a><a href="#about"><span>Skills and contact</span></a>
+  <a href="#home"><span>Home</span></a><a href="#fet"><span>01 Nanowire sensor</span></a><a href="#dbs"><span>02 Brain stimulation</span></a><a href="#agent"><span>03 Materials agent</span></a><a href="#wires"><span>04 Metal nanowires</span></a><a href="#lenia"><span>05 Artificial life</span></a><a href="#experience"><span>Experience</span></a><a href="#more"><span>Index</span></a><a href="#about"><span>Skills and contact</span></a>
 </nav>
 
 <div id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
@@ -104,6 +104,89 @@
   <text class="b" x="196" y="64">Secondary electrons</text><text x="196" y="77">top few nm</text>
   <text class="b" x="196" y="110">Backscattered</text><text x="196" y="123">deeper; heavy</text><text x="196" y="136">elements brighter</text>
   <text class="b" x="196" y="166">X-rays</text><text x="196" y="179">whole volume,</text><text x="196" y="192">up to about 1 µm</text>
+</svg>
+</template>
+<template id="tpl-fet">
+<svg class="dia" viewBox="0 0 420 300" role="img" aria-label="Cross-section sketch of a back-gated nanowire transistor: a silicon substrate acting as the gate, a thin oxide layer, a nanowire lying on the oxide with a metal contact over each end, and a droplet of solution carrying molecules over the wire.">
+  <path class="soft" d="M120 150 C120 70 300 70 300 150 Z" opacity="0.6"/>
+  <g class="dotf"><circle cx="170" cy="120" r="3"/><circle cx="205" cy="100" r="3"/><circle cx="240" cy="118" r="3"/><circle cx="262" cy="136" r="3"/><circle cx="190" cy="140" r="3"/></g>
+  <rect class="fillc" x="40" y="186" width="340" height="74"/>
+  <rect class="soft" x="40" y="166" width="340" height="20"/>
+  <rect class="teal" x="110" y="152" width="200" height="14" rx="7"/>
+  <rect class="gold" x="70" y="134" width="70" height="32"/><rect class="gold" x="280" y="134" width="70" height="32"/>
+  <path class="lead" d="M105 134 V112 M315 134 V112 M210 152 V40"/>
+  <text class="b" x="105" y="106" text-anchor="middle">Source</text><text class="b" x="315" y="106" text-anchor="middle">Drain</text>
+  <text class="b" x="210" y="24" text-anchor="middle">Analyte in solution</text><text x="210" y="38" text-anchor="middle">binds to the wire</text>
+  <text class="b" x="210" y="180" text-anchor="middle">SiO₂, 100 nm</text>
+  <text class="b" x="210" y="228" text-anchor="middle">p⁺ silicon: the back gate</text>
+  <text x="210" y="284" text-anchor="middle">InAs nanowire (teal) carries the current</text>
+</svg>
+</template>
+<template id="tpl-agent">
+<svg class="dia" viewBox="0 0 420 300" role="img" aria-label="Flow sketch of the extraction agent: a paper goes to a filter step, then an extractor, then a physics validator, then scoring. An arrow loops from the validator back to the extractor when a value fails a check.">
+  <rect class="fillc" x="16" y="96" width="58" height="72"/><path class="lead" d="M26 112 H64 M26 124 H64 M26 136 H52 M26 148 H60"/>
+  <rect class="fillc" x="100" y="110" width="64" height="44"/><rect class="fillc" x="186" y="110" width="68" height="44"/><rect class="soft" x="276" y="110" width="68" height="44"/><rect class="fillc" x="364" y="110" width="44" height="44"/>
+  <path class="ln" d="M74 132 H98 M164 132 H184 M254 132 H274 M344 132 H362 M92 127 L98 132 L92 137 M178 127 L184 132 L178 137 M268 127 L274 132 L268 137 M356 127 L362 132 L356 137"/>
+  <path class="r" d="M310 154 C310 214 220 214 220 158 M214 166 L220 156 L226 166"/>
+  <text class="b" x="45" y="88" text-anchor="middle">Paper</text>
+  <text class="b" x="132" y="137" text-anchor="middle">Filter</text><text class="b" x="220" y="137" text-anchor="middle">Extract</text><text class="b" x="310" y="137" text-anchor="middle">Validate</text><text class="b" x="386" y="137" text-anchor="middle">Score</text>
+  <text x="220" y="100" text-anchor="middle">Ms, Mr, Hc</text><text x="310" y="100" text-anchor="middle">Mr ≤ Ms</text>
+  <text class="b" x="265" y="232" text-anchor="middle" style="fill:var(--rose)">fails a physics check: try again</text>
+</svg>
+</template>
+<template id="tpl-isfet">
+<svg class="dia" viewBox="0 0 420 300" role="img" aria-label="Cross-section sketch of an ion-sensitive field-effect transistor: a silicon chip with a source and a drain region, an ion-sensitive membrane over the channel between them, the sample solution above, and a reference electrode dipping into the solution.">
+  <rect class="soft" x="60" y="60" width="300" height="100" opacity="0.5"/>
+  <rect class="fillc" x="40" y="176" width="340" height="84"/>
+  <rect class="gold" x="80" y="176" width="80" height="26"/><rect class="gold" x="260" y="176" width="80" height="26"/>
+  <rect class="teal" x="160" y="160" width="100" height="16"/>
+  <rect class="ink" x="300" y="30" width="10" height="96"/>
+  <g class="dotf"><circle cx="150" cy="100" r="3"/><circle cx="190" cy="130" r="3"/><circle cx="225" cy="96" r="3"/><circle cx="250" cy="134" r="3"/><circle cx="120" cy="136" r="3"/></g>
+  <path class="lead" d="M210 160 V146 M305 30 V22 M120 202 V222 M300 202 V222"/>
+  <text class="b" x="120" y="236" text-anchor="middle">Source</text><text class="b" x="300" y="236" text-anchor="middle">Drain</text>
+  <text class="b" x="210" y="254" text-anchor="middle">Silicon</text>
+  <text class="b" x="84" y="84">Sample: H⁺ ions</text>
+  <text class="b" x="316" y="18" text-anchor="end">Reference electrode</text>
+  <text x="210" y="284" text-anchor="middle">Ion-sensitive membrane (teal) replaces the metal gate</text>
+</svg>
+</template>
+<template id="tpl-focus">
+<svg class="dia" viewBox="0 0 420 300" role="img" aria-label="Sketch of the focus-drift measurement: a laser projector throws an image through its lens onto a screen, the lens warms up and shifts focus, and a camera watching the screen records image sharpness over time. A small graph shows sharpness drifting as temperature rises.">
+  <rect class="fillc" x="20" y="70" width="110" height="64"/><rect class="soft" x="130" y="84" width="26" height="36"/>
+  <path class="beam" d="M156 102 L368 40 V164 Z"/>
+  <rect class="ink" x="368" y="30" width="8" height="144"/>
+  <path class="r" d="M136 74 q5 -8 0 -16 q-5 -8 0 -16 M150 74 q5 -8 0 -16 q-5 -8 0 -16"/>
+  <rect class="fillc" x="196" y="196" width="60" height="36"/><rect class="soft" x="256" y="206" width="18" height="16"/>
+  <path class="lead" d="M274 212 L364 150"/>
+  <path class="ln" d="M40 190 V270 H170"/><path class="r" d="M40 204 C80 206 100 236 168 258"/>
+  <text class="b" x="75" y="106" text-anchor="middle">Projector</text>
+  <text class="b" x="143" y="34" text-anchor="middle">Lens warms</text>
+  <text class="b" x="384" y="22" text-anchor="end">Screen</text>
+  <text class="b" x="226" y="250" text-anchor="middle">Camera</text><text x="226" y="264" text-anchor="middle">tracks sharpness</text>
+  <text x="44" y="186">Sharpness</text><text x="170" y="286" text-anchor="end">Time, temperature</text>
+</svg>
+</template>
+<template id="tpl-coin">
+<svg class="dia" viewBox="0 0 420 320" role="img" aria-label="Exploded sketch of a coin cell, top to bottom: top case, spring, spacer, anode, separator soaked in electrolyte, cathode, bottom case.">
+  <path class="fillc" d="M90 40 a80 16 0 0 1 160 0 v10 a80 16 0 0 1 -160 0 Z"/>
+  <path class="ln" d="M110 86 q30 -14 60 0 t60 0"/>
+  <ellipse class="soft" cx="170" cy="118" rx="70" ry="12"/>
+  <ellipse class="fillc" cx="170" cy="152" rx="66" ry="11"/>
+  <ellipse class="teal" cx="170" cy="186" rx="74" ry="12" opacity="0.7"/>
+  <ellipse class="gold" cx="170" cy="220" rx="66" ry="11"/>
+  <path class="fillc" d="M84 258 a86 17 0 0 0 172 0 v12 a86 17 0 0 1 -172 0 Z"/>
+  <path class="lead" d="M252 44 H284 M232 86 H284 M240 118 H284 M236 152 H284 M244 186 H284 M236 220 H284 M258 264 H284"/>
+  <text class="b" x="290" y="48">Top case</text><text class="b" x="290" y="90">Spring</text><text class="b" x="290" y="122">Spacer</text><text class="b" x="290" y="156">Anode</text>
+  <text class="b" x="290" y="190">Separator +</text><text x="290" y="204">electrolyte</text><text class="b" x="290" y="224">Cathode</text><text x="290" y="238">LiFePO₄ or NCM</text><text class="b" x="290" y="268">Bottom case</text>
+</svg>
+</template>
+<template id="tpl-ttc">
+<svg class="dia" viewBox="0 0 420 200" role="img" aria-label="Flow sketch: account lists from Active Directory and the mainframe feed a Python and Excel script, which produces the access-review report.">
+  <rect class="fillc" x="6" y="60" width="126" height="70"/><rect class="soft" x="160" y="60" width="104" height="70"/><rect class="fillc" x="292" y="60" width="114" height="70"/>
+  <path class="ln" d="M132 95 H158 M264 95 H290 M152 90 L158 95 L152 100 M284 90 L290 95 L284 100"/>
+  <text class="b" x="69" y="88" text-anchor="middle">Account lists</text><text x="69" y="104" text-anchor="middle">Active Directory,</text><text x="69" y="118" text-anchor="middle">IBM mainframe</text>
+  <text class="b" x="212" y="92" text-anchor="middle">Script</text><text x="212" y="108" text-anchor="middle">Python, Excel</text>
+  <text class="b" x="349" y="92" text-anchor="middle">Access review</text><text x="349" y="108" text-anchor="middle">report</text>
 </svg>
 </template>
 <template id="tpl-eis">
@@ -199,7 +282,7 @@
         <button type="button" id="lens-research" aria-pressed="true">Research</button>
         <button type="button" id="lens-industry" aria-pressed="false">Industry</button>
       </div>
-      <a class="brk" href="#about">[ Skip to summary ]</a>
+      <a class="brk r" href="#experience">[ Experience and education ]</a><a class="brk i" href="#experience">[ Jump to experience ]</a>
     </div>
     <p class="hint">[ scroll ] <button type="button" class="brk" id="replay" hidden>[ Replay intro ]</button></p>
   </section>
@@ -278,6 +361,19 @@
     </figure>
   </section>
 
+  <section class="screen" id="experience">
+    <h2>EXPERIENCE AND EDUCATION</h2>
+    <p class="lede">Eighteen months of co-op R&amp;D across medical devices, optics and battery materials, between two engineering degrees. Open a file for the details and a diagram of the work.</p>
+    <div class="tl" id="timeline">
+      <div class="tl-item"><span class="yr">2026–27</span><span><b>University of Toronto</b><span class="role">Master of Engineering, Materials Science and Engineering</span></span><span class="res">Deep learning, machine learning, biomaterials, neuromodulation</span><span class="tag">Degree</span></div>
+      <div class="tl-item wk"><span class="yr">2025</span><span><b>Christie Digital</b><span class="role">Optical Engineering Co-op · Kitchener</span></span><span class="res"><strong>100+</strong>thermal test cycles analysed for projector focus drift</span><button type="button" class="brk" data-case="christie">[ Open file ]</button></div>
+      <div class="tl-item wk"><span class="yr">2023–24</span><span><b>FluidAI Medical</b><span class="role">R&amp;D Engineering Associate · Kitchener</span></span><span class="res"><strong>66%</strong>less sensor calibration time</span><button type="button" class="brk" data-case="fluidai">[ Open file ]</button></div>
+      <div class="tl-item wk"><span class="yr">2023</span><span><b>Institute of Batteries</b><span class="role">Research Assistant · Astana</span></span><span class="res"><strong>50+</strong>cells built and tested, cycle life up 15%</span><button type="button" class="brk" data-case="batteries">[ Open file ]</button></div>
+      <div class="tl-item wk"><span class="yr">2022</span><span><b>Toronto Transit Commission</b><span class="role">Access Control Administrator · Toronto</span></span><span class="res"><strong>5,000+</strong>accounts covered by automated access reviews</span><button type="button" class="brk" data-case="ttc">[ Open file ]</button></div>
+      <div class="tl-item"><span class="yr">2021–26</span><span><b>University of Waterloo</b><span class="role">BASc Nanotechnology Engineering, co-op</span></span><span class="res">Specializations in AI and cognitive systems, and nano-biosystems</span><span class="tag">Degree</span></div>
+    </div>
+  </section>
+
   <section class="screen" id="more">
     <div class="counter">[ INDEX ]</div>
     <h2>EVERYTHING ELSE</h2>
@@ -334,7 +430,7 @@
   </section>
 
   <section class="screen" id="about">
-    <h2>SKILLS, EDUCATION, CONTACT</h2>
+    <h2>SKILLS AND CONTACT</h2>
 
 
     <div class="block">
@@ -364,24 +460,6 @@
         <span><span class="dot" style="background:var(--rose)"></span>Simulation</span>
       </div>
       <p id="used" aria-live="polite">Hover or tap a tile to see where it was used. A tile marked “note” opens an explainer.</p>
-    </div>
-
-    <div class="block">
-      <h3>Education</h3>
-      <ul class="list">
-        <li><span class="yr">2026–27</span><span><b>University of Toronto.</b> Master of Engineering, Materials Science and Engineering. Deep learning, machine learning, biomaterials, neuromodulation.</span></li>
-        <li><span class="yr">2021–26</span><span><b>University of Waterloo.</b> BASc Nanotechnology Engineering, co-op. Specializations in AI and cognitive systems, and nano-biosystems.</span></li>
-      </ul>
-    </div>
-
-    <div class="block jobs-block">
-      <h3>Industry R&amp;D</h3>
-      <div class="jobs">
-        <div class="job"><b>FluidAI Medical</b><span>R&amp;D Engineering Associate · 2023–24</span><span>Cut sensor calibration time by 66%</span></div>
-        <div class="job"><b>Christie Digital</b><span>Optical Engineering · 2025</span><span>Focus-drift metrology across 100+ thermal cycles</span></div>
-        <div class="job"><b>Institute of Batteries</b><span>Research Assistant · 2023</span><span>Built 50+ cells, cycle life up 15%</span></div>
-        <div class="job"><b>Toronto Transit Commission</b><span>Access Control Administrator · 2022</span><span>Automated access reviews for 5,000+ accounts</span></div>
-      </div>
     </div>
 
     <div class="block">
