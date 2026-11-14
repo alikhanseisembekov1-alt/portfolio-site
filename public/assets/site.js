@@ -696,7 +696,7 @@
     var te = ts * ts * (3 - 2 * ts), w0 = Math.max(0, 1 - p);
     var sc = (narrow ? Math.min(1, W / 520) * 0.82 : Math.min(1.15, W / 1250 + 0.25)) * lerpArr(scl, seg, te);
     points.scale.setScalar(sc);
-    points.position.x = narrow ? 0 : lerpArr(posX, seg, te);
+    points.position.x = narrow ? 0 : lerpArr(posX, seg, te) * Math.min(1, Math.max(0.55, (W - 560) / 760));
     points.position.y = narrow ? 1.5 * Math.min(1, Math.max(0, S - 2 - p) * 2) : lerpArr(posY, seg, te);
     points.rotation.y = (w0 * spin + lerpArr(rotY, seg, te)) * (1 - face) + mouse.x * (0.35 - 0.2 * face);
     points.rotation.x = lerpArr(rotX, seg, te) * (1 - face) + mouse.y * (0.18 - 0.1 * face);
