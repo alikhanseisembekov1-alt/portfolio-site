@@ -477,54 +477,55 @@
     <div class="block">
       <h3>Periodic table of skills</h3>
       <div class="table" id="table">
-        <button type="button" class="tile fab" data-used="Nanowire FET sensor · Ruda Group"><span class="sym">Ph</span><span class="nm">Photolithography</span></button>
-        <button type="button" class="tile fab" data-used="Battery electrodes · Institute of Batteries"><span class="sym">Sp</span><span class="nm">Sputtering, PECVD</span></button>
+        <button type="button" class="tile fab" data-go="case:fet" data-used="Nanowire FET sensor · Ruda Group"><span class="sym">Ph</span><span class="nm">Photolithography</span></button>
+        <button type="button" class="tile fab" data-go="case:batteries" data-used="Battery electrodes · Institute of Batteries"><span class="sym">Sp</span><span class="nm">Sputtering, PECVD</span></button>
         <button type="button" class="tile fab" data-used="Microfluidic reactor for gold nanoparticles · NE 454C"><span class="sym">Sl</span><span class="nm">Soft lithography</span></button>
-        <button type="button" class="tile fab" data-used="Multi-segment metal nanowires · NE 454D"><span class="sym">Ed</span><span class="nm">Electrodeposition</span></button>
-        <button type="button" class="tile fab" data-used="Microfluidic chip and mask layout"><span class="sym">Ac</span><span class="nm">AutoCAD</span></button>
-        <button type="button" class="tile chr" data-note="sem" data-used="Nanowires, microcapsules, battery cathodes"><span class="sym">Sm</span><span class="nm">SEM</span></button>
-        <button type="button" class="tile chr" data-note="eis" data-used="Supercapacitor and battery cells"><span class="sym">Ei</span><span class="nm">EIS, CV</span></button>
-        <button type="button" class="tile chr" data-note="dls" data-used="Gold nanoparticle sizing · NE 454C"><span class="sym">Dl</span><span class="nm">DLS, UV–Vis</span></button>
-        <button type="button" class="tile chr" data-used="Laser projector optics · Christie Digital"><span class="sym">Op</span><span class="nm">Optical metrology</span></button>
+        <button type="button" class="tile fab" data-go="case:wires" data-used="Multi-segment metal nanowires · NE 454D"><span class="sym">Ed</span><span class="nm">Electrodeposition</span></button>
+        <button type="button" class="tile fab" data-go="bench" data-used="Microfluidic chip and mask layout"><span class="sym">Ac</span><span class="nm">AutoCAD</span></button>
+        <button type="button" class="tile chr" data-note="sem" data-go="case:wires|case:batteries|note:sem" data-used="Nanowires, microcapsules, battery cathodes"><span class="sym">Sm</span><span class="nm">SEM</span></button>
+        <button type="button" class="tile chr" data-note="eis" data-go="case:batteries|note:eis" data-used="Supercapacitor and battery cells"><span class="sym">Ei</span><span class="nm">EIS, CV</span></button>
+        <button type="button" class="tile chr" data-note="dls" data-go="note:dls" data-used="Gold nanoparticle sizing · NE 454C"><span class="sym">Dl</span><span class="nm">DLS, UV–Vis</span></button>
+        <button type="button" class="tile chr" data-go="case:christie" data-used="Laser projector optics · Christie Digital"><span class="sym">Op</span><span class="nm">Optical metrology</span></button>
         <button type="button" class="tile mlx" data-used="Reinforcement vs. imitation learning on Atari Breakout"><span class="sym">Pt</span><span class="nm">PyTorch</span></button>
-        <button type="button" class="tile mlx" data-used="Magnetic-materials extraction agent"><span class="sym">Lg</span><span class="nm">LangGraph</span></button>
-        <button type="button" class="tile mlx" data-used="Human DBS microelectrode recordings"><span class="sym">Sd</span><span class="nm">Spike detection</span></button>
-        <button type="button" class="tile mlx" data-used="Every project on this page"><span class="sym">Py</span><span class="nm">Python</span></button>
-        <button type="button" class="tile sim" data-used="Nanowire–electrolyte interface · Ruda Group"><span class="sym">Md</span><span class="nm">Molecular dynamics</span></button>
+        <button type="button" class="tile mlx" data-go="case:agent" data-used="Magnetic-materials extraction agent"><span class="sym">Lg</span><span class="nm">LangGraph</span></button>
+        <button type="button" class="tile mlx" data-go="case:dbs" data-used="Human DBS microelectrode recordings"><span class="sym">Sd</span><span class="nm">Spike detection</span></button>
+        <button type="button" class="tile mlx" data-go="case:dbs|case:agent|case:lenia|case:fluidai" data-used="Every project on this page"><span class="sym">Py</span><span class="nm">Python</span></button>
+        <button type="button" class="tile sim" data-go="case:fet" data-used="Nanowire–electrolyte interface · Ruda Group"><span class="sym">Md</span><span class="nm">Molecular dynamics</span></button>
         <button type="button" class="tile sim" data-used="Sputter deposition simulator · Waterloo Hacker Fab"><span class="sym">Mc</span><span class="nm">Monte Carlo</span></button>
         <button type="button" class="tile sim" data-used="Self-healing dental composite · capstone"><span class="sym">Cm</span><span class="nm">COMSOL</span></button>
       </div>
-      <div class="legend">
-        <span><span class="dot" style="background:var(--gold)"></span>Fabrication</span>
-        <span><span class="dot" style="background:var(--teal)"></span>Characterization</span>
-        <span><span class="dot" style="background:var(--violet)"></span>ML and signals</span>
-        <span><span class="dot" style="background:var(--rose)"></span>Simulation</span>
+      <div class="legend" id="fams" role="group" aria-label="Filter skills by family">
+        <button type="button" data-fam="fab" aria-pressed="false"><span class="dot" style="background:var(--gold)"></span>Fabrication</button>
+        <button type="button" data-fam="chr" aria-pressed="false"><span class="dot" style="background:var(--teal)"></span>Characterization</button>
+        <button type="button" data-fam="mlx" aria-pressed="false"><span class="dot" style="background:var(--violet)"></span>ML and signals</button>
+        <button type="button" data-fam="sim" aria-pressed="false"><span class="dot" style="background:var(--rose)"></span>Simulation</button>
       </div>
-      <p id="used" aria-live="polite">Hover or tap a tile to see where it was used. A tile marked “note” opens an explainer.</p>
+      <div id="readout" class="idle" aria-live="polite"><span class="rsym">?</span><span class="rname">Pick an element</span><span class="rfam">Hover or tap a tile to see where it was used. Click it to keep it selected, then open the project.</span><span class="rused"></span></div>
     </div>
 
     <div class="block">
       <h3>From the bench</h3>
-      <div class="bench">
-        <figure class="photo poly" style="--rot: -2deg">
-          <img class="pic tall" src="/assets/img/chip.jpg" alt="A clear PDMS microfluidic chip with a serpentine channel, photographed on a dark bench">
-          <figcaption>PDMS microfluidic reactor · NE 454C</figcaption>
-        </figure>
-        <figure class="photo" style="--rot: 2deg">
-          <img class="pic tall" src="/assets/img/chip-cad.jpg" alt="AutoCAD drawing of the chip: three inlets, a round chamber and a serpentine channel">
-          <figcaption>The same chip in AutoCAD · three inlets, serpentine mixer</figcaption>
-        </figure>
-        <figure class="photo" style="--rot: -1deg">
-          <div class="pic slot">Photo slot<br>You in the lab or cleanroom</div>
-          <figcaption>More photos go here</figcaption>
-        </figure>
+      <div class="bench-wrap" id="bench">
+        <div class="compare" id="compare" style="--cut: 50%">
+          <img class="cad" src="/assets/img/chip-cad.jpg" alt="AutoCAD drawing of the chip: three inlets, a round chamber and a serpentine channel">
+          <div class="real-wrap"><img class="real" src="/assets/img/chip.jpg" alt="The fabricated PDMS chip, mirrored to line up with the drawing"></div>
+          <span class="lab l">AutoCAD</span><span class="lab r">Fabricated</span>
+          <span class="handle" aria-hidden="true"></span>
+          <input type="range" min="0" max="100" value="50" aria-label="Slide between the AutoCAD drawing and the fabricated chip">
+        </div>
+        <p class="cap"><b>Drawn, then built</b>PDMS microfluidic reactor for gold nanoparticles, NE 454C. Drag across to go from my AutoCAD layout to the chip it became: three inlets, a mixing chamber and a serpentine channel. The photo is mirrored to match the drawing.</p>
       </div>
     </div>
 
-    <div class="contact">
+    <div class="contact end">
       <h3>Let's talk</h3>
-      <a class="sel" href="mailto:alikhanseisembekov1@gmail.com">alikhanseisembekov1@gmail.com</a>
-      <span><a href="https://www.linkedin.com/in/alikhan-seisembekov-81874521a">LinkedIn</a> · <a href="https://github.com/alikhanseisembekov1-alt">GitHub</a> · CV available on request</span>
+      <p class="big">Open to R&amp;D internships and full-time roles.</p>
+      <p class="sub">Also considering PhD positions.</p>
+      <div class="acts">
+        <button type="button" class="copy" id="copy-mail">[ Copy email ]</button>
+        <a class="sel" href="mailto:alikhanseisembekov1@gmail.com">alikhanseisembekov1@gmail.com</a>
+      </div>
+      <span class="links"><a href="https://www.linkedin.com/in/alikhan-seisembekov-81874521a">LinkedIn</a> · <a href="https://github.com/alikhanseisembekov1-alt">GitHub</a> · CV available on request</span>
     </div>
       <p class="fine foot">© 2026 Alikhan Seisembekov · <a href="#home">Back to top</a></p>
   </section>
