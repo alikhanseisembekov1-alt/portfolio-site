@@ -363,4 +363,8 @@ h1, h2 { transition: text-shadow 0.25s; }
 .contact.end .copy { background: var(--ink); color: var(--paper); border: 0; padding: 8px 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12.5px; cursor: pointer; min-width: 14ch; }
 .contact.end .copy.ok { background: var(--teal); }
 .contact.end .links { font-size: 14px; }
+.contact.end .cvdl { display: flex; flex-wrap: wrap; gap: 10px; }
+.cvbtn { font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--ink); padding: 7px 11px; text-decoration: none; background: var(--card); }
+.cvbtn:hover { background: var(--ink); color: var(--paper); }
+[data-lens="industry"] .cvdl .cvbtn:first-child { order: 2; }
 @media (prefers-reduced-motion: reduce) { .table.anim .tile { opacity: 1; transform: none; } }
