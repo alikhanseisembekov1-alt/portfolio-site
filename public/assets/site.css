@@ -398,3 +398,18 @@ h1, h2 { transition: text-shadow 0.25s; }
 .light[hidden] { display: none; }
 .light img { display: block; width: min(2000px, 100%); min-width: min(1100px, 260vw); margin: 0 auto; }
 .light button { position: fixed; top: 10px; right: 16px; z-index: 1; }
+/* map */
+.graph-wrap { background: var(--chip); padding: 10px; display: grid; gap: 8px; }
+.graph-hint { margin: 0; font-size: 12.5px; color: var(--ink-soft); }
+#graph { display: block; width: 100%; height: 540px; background: var(--card); border: 1px solid var(--rule); touch-action: none; cursor: grab; user-select: none; }
+#graph line { stroke: var(--ink-soft); stroke-width: 0.8; opacity: 0.45; transition: opacity 0.2s; }
+#graph g.n { cursor: pointer; transition: opacity 0.2s; }
+#graph g.n circle { stroke: var(--card); stroke-width: 2; transition: r 0.2s; }
+#graph g.n text { font-family: var(--mono); font-size: 11px; fill: var(--ink); paint-order: stroke; stroke: var(--card); stroke-width: 3px; pointer-events: none; }
+#graph g.n.tag text { font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-size: 10.5px; }
+#graph.hov line { opacity: 0.08; } #graph.hov line.on { opacity: 1; stroke: var(--ink); stroke-width: 1.4; }
+#graph.hov g.n { opacity: 0.2; } #graph.hov g.n.on { opacity: 1; }
+#graph g.n:focus-visible circle { stroke: var(--rose); stroke-width: 3; } #graph g.n:focus { outline: none; }
+.legend.gl { font-size: 12px; }
+@media (max-width: 700px) { #graph { height: 620px; } #graph g.n text { font-size: 10px; } }
+.contact.end .brk, .list .brk { white-space: nowrap; }

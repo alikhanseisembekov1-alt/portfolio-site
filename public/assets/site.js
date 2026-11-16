@@ -131,6 +131,22 @@
       approach: ['Made poly(urea-formaldehyde) microcapsules filled with TEGDMA healing agent, over nine synthesis runs.', 'Mixed the capsules at 15 wt% into a UV-cured BisGMA/TEGDMA resin, over seven resin iterations.', 'Imaged the capsules by SEM, measured thermal stability by DSC, and ran compression and scratch tests on cured bars.', 'Wrote a Python model of capsules and a crack inside a resin cube, to estimate how much healing liquid a crack releases.'],
       result: 'Capsules about 40 µm across formed, and the shell stayed stable to about 260 °C, well above the 150 °C target. The model predicted that a narrow crack fills at about 8% capsules by volume. We could not measure healing efficiency, because the bars broke through during pre-cracking, and compressive strength was far below target (0.26 MPa against 225 MPa). A run with double the EMA concentration formed no capsules.',
       next: '', stack: ['Microencapsulation', 'SEM', 'DSC', 'Python'], fig: { set: 'capstone', zoom: true, extraSrc: '/assets/img/capstone-poster.jpg', extraAlt: 'Capstone symposium poster titled Advanced Dental Composites, with sections for introduction, synthesis process, results, DSC analysis and future directions', extraCap: 'Our capstone poster' } },
+    breakout: { heads: ['The question', 'What we are doing', 'Status'], meta: [['Status', 'In progress'], ['Role', 'Team of four'], ['Where', 'MIE1517 Deep Learning, University of Toronto']], title: 'LEARNING TO PLAY: REINFORCEMENT VS. IMITATION', kicker: 'Course project · Fall 2026 · University of Toronto',
+      problem: 'There are two ways to teach an agent a video game. Reinforcement learning lets it play and learn from the score. Imitation learning shows it recordings of good play and has it copy them. We are comparing the two on Atari Breakout.',
+      approach: ['Training a reinforcement-learning agent and an imitation-learning agent on the same game.', 'Scoring both by in-game score, so the comparison uses one number.', 'Built in PyTorch.'],
+      result: 'In progress this term. Results will go here when the project is finished.', next: '', stack: ['PyTorch', 'Reinforcement learning', 'Imitation learning'], fig: { tpl: 'tpl-breakout', cap: 'The game, and the two ways to learn it' } },
+    organoid: { heads: ['The problem', 'What we did', 'Outcome'], meta: [['Status', 'Done'], ['Role', 'Co-author'], ['Where', 'NE 487 Microfluidics, University of Waterloo']], title: 'BRAIN ORGANOID-ON-CHIP', kicker: 'Review and proposal · Winter 2026 · University of Waterloo',
+      problem: 'A brain organoid is a small ball of tissue grown from stem cells. To form distinct regions it needs signalling molecules, called morphogens, at different strengths in different places. A dish cannot hold those gradients steady.',
+      approach: ['Co-authored a review of the organoid-on-chip literature.', 'Proposed a microfluidic chip that holds two crossed gradients, SHH and WNT, across one chamber.', 'Planned the morphogen delivery around fluid-flow simulation (CFD) and machine learning.'],
+      result: 'A written review and a device concept. The chip was a proposal and was not built.', next: '', stack: ['Microfluidics', 'CFD', 'Literature review'], fig: { tpl: 'tpl-organoid', cap: 'The proposed chamber, seen from above' } },
+    sputter: { heads: ['The problem', 'What I did', 'Result'], meta: [['Status', 'Done'], ['Role', 'Research member'], ['Where', 'Waterloo Hacker Fab']], title: 'MONTE CARLO SPUTTER DEPOSITION', kicker: 'Simulation · 2024–25 · Waterloo Hacker Fab',
+      problem: 'Sputtering coats a wafer by knocking atoms off a metal target. On the way down the atoms collide with gas, so where they land, at what angle and with what energy depends on the chamber. Building a chamber to find out is slow and expensive.',
+      approach: ['Wrote a Monte Carlo simulator of magnetron sputtering that follows individual atoms.', 'Modelled three stages: emission from the target, scattering in the gas, and arrival at the surface.', 'Ran it on a GPU to follow more than 100,000 trajectories.'],
+      result: 'Maps of the angle and energy of the atoms arriving at the substrate, used to think through chamber design.', next: '', stack: ['Python', 'GPU computing', 'Monte Carlo'], fig: { tpl: 'tpl-sputter', cap: 'Simulated paths from target to substrate' } },
+    toyota: { heads: ['The challenge', 'What we did', 'What was hard'], meta: [['When', 'May 2023'], ['Type', 'Team competition']], title: 'TOYOTA INNOVATION CHALLENGE', kicker: 'Competition · 2023',
+      problem: 'Build a vision system that finds the holes on a part and guides a robotic arm or machine to place a sticker over each one.',
+      approach: ['Collected images of the parts and labelled them by hand.', 'Split the labelled images into training and test sets, working in Kaggle.', 'Trained a deep-learning model to find the holes.', 'Used the detected positions as targets for the sticker applicator.'],
+      result: 'Black stickers were the hard case. To the camera a black sticker looks much like an open hole, so the model had trouble telling a covered hole from an empty one.', next: '', stack: ['Deep learning', 'Computer vision', 'Kaggle'], fig: { tpl: 'tpl-toyota', cap: 'Camera to model to applicator', zoom: true, extraSrc: '/assets/img/toyota-challenge.jpg', extraAlt: 'A large group of students and organisers posing on and around a red staircase in a glass atrium', extraCap: 'Everyone at the challenge, May 2023' } },
     lenia: { meta: [['Status', 'Done'], ['Role', 'Sole author'], ['Where', 'University of Waterloo']], title: 'EVOLVING ARTIFICIAL LIFE', kicker: '05 · Winter 2026 · Independent paper, University of Waterloo',
       problem: 'Can simple local rules be evolved to grow a target shape from noise? And does that shape then repair itself, as living tissue does?',
       approach: ['Wrote an FFT-accelerated Lenia simulation in Python.', 'Ran a (μ+λ) evolution strategy over a 7-dimensional space of kernel and growth parameters.', 'Scored target shapes with a composite fitness, then deleted parts of each organism to test self-repair.'],
@@ -168,7 +184,7 @@
     return fig;
   }
   Array.prototype.forEach.call(document.querySelectorAll('figure[data-set]'), function (f) { buildSet(f, f.getAttribute('data-set')); });
-  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia', 'capstone'], job: ['uoft', 'christie', 'fluidai', 'batteries', 'ttc', 'waterloo'], note: ['sem', 'eis', 'xrd', 'dls'] };
+  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia', 'breakout', 'capstone', 'organoid', 'sputter', 'toyota'], job: ['uoft', 'christie', 'fluidai', 'batteries', 'ttc', 'waterloo'], note: ['sem', 'eis', 'xrd', 'dls', 'qd', 'spion', 'afm'] };
   function fillMeta(c, stack) {
     sheetMeta.textContent = '';
     (c.meta || []).concat(stack ? [['Stack', stack.join(' ; ')]] : []).forEach(function (m) { var p = el('p'); p.appendChild(el('b', '', m[0])); p.appendChild(document.createTextNode(' : ' + m[1])); sheetMeta.appendChild(p); });
@@ -177,10 +193,25 @@
     sheetNow = { kind: kind, id: id };
     sheet.hidden = false; sheet.scrollTop = 0; docEl.style.overflow = 'hidden';
     sheet.classList.remove('in', 'out'); void sheet.offsetWidth; sheet.classList.add('in');
-    scramble(document.getElementById('sheet-title'), 420);
+    scramble(document.getElementById('sheet-title'), 420); sketchIn(sheet);
     document.getElementById('sheet-close').focus();
     var h = '#' + (kind === 'note' ? 'note-' : 'file-') + id;
     try { if (!routing && location.hash !== h) { if (/^#(file|note)-/.test(location.hash)) history.replaceState(null, '', h); else { history.pushState(null, '', h); pushed = true; } } } catch (e) {}
+  }
+  function sketchIn(root) {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    Array.prototype.forEach.call(root.querySelectorAll('svg.dia'), function (svg) {
+      var k = 0;
+      Array.prototype.forEach.call(svg.querySelectorAll('path, line, rect, circle, ellipse, polyline, polygon, text'), function (n) {
+        if (!n.animate || n.closest('defs') || n.closest('pattern')) return;
+        var d = Math.min(1100, (k++) * 14), cs = getComputedStyle(n);
+        if (n.tagName === 'text' || cs.stroke === 'none' || cs.strokeDasharray !== 'none' || !n.getTotalLength) { n.animate([{ opacity: 0 }, { opacity: cs.opacity }], { duration: 380, delay: d + 200, fill: 'backwards' }); return; }
+        var L = 0; try { L = n.getTotalLength(); } catch (e) {} if (!L) return;
+        n.style.strokeDasharray = L;
+        var a = n.animate([{ strokeDashoffset: L, fillOpacity: 0 }, { strokeDashoffset: 0, fillOpacity: 0, offset: 0.7 }, { strokeDashoffset: 0, fillOpacity: cs.fillOpacity }], { duration: 760, delay: d, fill: 'backwards', easing: 'ease-out' });
+        a.onfinish = a.oncancel = function () { n.style.strokeDasharray = ''; };
+      });
+    });
   }
   var light = null;
   function openLight(src, alt) {
@@ -306,6 +337,55 @@
         { h: 'Where I used it', p: 'Battery cathodes at the Institute of Batteries: checking the crystal phase of LiFePO₄ and NCM materials, alongside SEM for particle shape and electrochemical tests for performance.' }
       ],
       side: [ { tpl: 'tpl-xrd', cap: 'Top: Bragg reflection from two planes. Bottom: what peak width shows.' } ] },
+    qd: { meta: [['Filed', 'Nanomaterials']], title: 'QUANTUM DOTS: COLOUR SET BY SIZE', kicker: 'Field note 05 · Nanomaterials',
+      main: [
+        { h: 'In one paragraph', p: 'A quantum dot is a crystal of semiconductor only a few nanometres across. At that size the crystal is smaller than the natural spread of an electron inside it, so the electron is squeezed. Squeezing raises its energy, and the smaller the dot, the more it is raised. The result is a material whose colour you choose by choosing its size: the same compound glows blue at 2 nm and red at 7 nm.' },
+        { h: 'How you read a batch', list: [
+          'UV–Vis absorption: the first absorption peak moves to shorter wavelengths as the dots get smaller, so its position gives the average size.',
+          'Photoluminescence: shine UV light on the sample and measure the colour that comes back. The emission peak sits just to the red of the absorption peak.',
+          'Peak width: a narrow emission peak means the dots are nearly all one size. A broad one means a mixed batch.',
+          'Electron microscopy checks the size directly, on a few hundred dots.' ] },
+        { h: 'Where it misleads you', list: [
+          'Brightness depends on the surface. Atoms at the surface with unused bonds trap the electron before it can emit, so a dim batch is often a surface problem, not a size problem.',
+          'A concentrated sample re-absorbs its own light, which shifts the measured colour toward red. Dilute before measuring.',
+          'Size from the absorption peak relies on a calibration curve for that exact material.' ] },
+        { h: 'Why it matters', p: 'Displays use quantum dots for pure reds and greens. In biology they are bright, stable labels, and several colours can be excited by one lamp.' } ],
+      side: [ { tpl: 'tpl-qd', cap: 'Top: one material at six sizes. Bottom: why a smaller dot emits bluer light.' } ] },
+    spion: { meta: [['Filed', 'Nanomaterials']], title: 'SPIONS: MAGNETS THAT SWITCH OFF', kicker: 'Field note 06 · Nanomaterials',
+      main: [
+        { h: 'In one paragraph', p: 'SPIONs are superparamagnetic iron oxide nanoparticles, usually magnetite about 10 nm across. Each particle is a single tiny magnet. It is so small that heat alone keeps flipping the direction of its magnetization, so with no field applied a collection of them has no net magnetism. Apply a field and they all line up and respond strongly. Remove it and they forget at once.' },
+        { h: 'Why that is useful', list: [
+          'No leftover magnetism means the particles do not stick to each other once the field is gone, so they stay suspended in liquid.',
+          'Coated with a surfactant and suspended in a carrier liquid, they make a ferrofluid: a liquid that a magnet can pull, hold and lift.',
+          'In medicine they are used as MRI contrast agents, for magnetic separation of cells or molecules, and for heating tumours with an alternating field.' ] },
+        { h: 'How you check you made them', list: [
+          'Magnetometry: plot magnetization against field. Superparamagnetic particles give an S-shaped curve through zero with no loop. A loop means the particles are too big or have clumped.',
+          'Electron microscopy or XRD for the size of the iron oxide core.',
+          'DLS for the size in liquid, which includes the coating and shows clumping.' ] },
+        { h: 'Where it misleads you', list: [
+          'The behaviour depends on temperature and on how fast you measure. Cool the sample or measure quickly and the same particles look like ordinary magnets.',
+          'Magnetite slowly oxidises to maghemite, which is weaker, so the saturation value drifts with age.',
+          'A bare-looking curve can hide clumps. Check with DLS as well.' ] } ],
+      side: [ { tpl: 'tpl-spion', cap: 'Top: moments with and without a field. Middle: a ferrofluid under a magnet. Bottom: the curve with no loop.' } ] },
+    afm: { meta: [['Filed', 'Characterization'], ['Project', 'Automatic tip-wear detection (proposed)']], title: 'ATOMIC FORCE MICROSCOPY, AND WHEN THE TIP LIES', kicker: 'Field note 07 · Characterization',
+      main: [
+        { h: 'In one paragraph', p: 'An atomic force microscope feels a surface instead of looking at it. A tip a few nanometres wide sits at the end of a thin springboard called a cantilever. As the tip is dragged or tapped across the sample, the surface pushes it up and down. A laser bounced off the back of the cantilever turns that motion into a signal, and a feedback loop raises or lowers the tip to keep the force constant. The record of those corrections, line by line, is the height map.' },
+        { h: 'What you get', list: [
+          'Height resolution well under a nanometre, on almost any solid: no vacuum and no conductive coating needed.',
+          'Contact mode drags the tip. Tapping mode vibrates it so it only touches briefly, which is gentler on soft samples.',
+          'Beyond height, the same tip can map stiffness, adhesion, and electrical or magnetic forces.' ] },
+        { h: 'Where it misleads you', list: [
+          'Every image is the surface widened by the shape of the tip. Sideways detail finer than the tip is the tip, not the sample.',
+          'A blunt tip makes particles look wider and trenches look shallower. Heights stay roughly right, widths do not.',
+          'A chipped tip with two points draws every feature twice, as a ghost beside the real one.',
+          'A tip that picks up debris changes mid-scan, so the top and bottom of one image can disagree.' ] },
+        { h: 'Proposed project: automatic tip-wear detection and correction', p: 'Tips get contaminated, blunt or damaged, and the images they produce look plausible while being wrong. The idea is an algorithm that estimates the health of the tip from successive scans or from a calibration sample.' },
+        { h: 'How it would work', list: [
+          'Image processing to pull repeated shapes out of each scan, since every sharp feature carries an imprint of the tip.',
+          'Inverse modelling to reconstruct the tip shape from those imprints.',
+          'Bayesian inference to track that shape over time with an honest uncertainty.',
+          'The extension: predict when the tip should be replaced, and separate real surface features from artefacts the tip created.' ] } ],
+      side: [ { tpl: 'tpl-afm', cap: 'Top: laser, cantilever and tip. Bottom: the same step read by a sharp and a blunt tip.' } ] },
     dls: { meta: [['Filed', 'Characterization'], ['Used in', 'Gold nanoparticle synthesis']], title: 'SIZING NANOPARTICLES WITH LIGHT: DLS AND UV–VIS', kicker: 'Field note 04 · Characterization',
       main: [
         { h: 'In one paragraph', p: 'Particles in a liquid never sit still. Dynamic light scattering (DLS) shines a laser through the liquid and watches how quickly the scattered light flickers: small particles move fast and flicker fast, large ones drift and flicker slowly. The flicker rate gives how fast the particles diffuse, and from that their size. UV–Vis spectroscopy is simpler. It measures how much light of each colour the sample absorbs.' },
@@ -454,7 +534,7 @@
     tabBtns.forEach(function (b) {
       var on = b.getAttribute('data-tab') === name, pn = document.getElementById('tab-' + b.getAttribute('data-tab'));
       b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; pn.classList.toggle('on', on);
-      if (on) { Array.prototype.forEach.call(pn.querySelectorAll('.idx > .row, li, .folder'), function (x, i) { x.style.setProperty('--i', i); }); if (focus) b.focus(); }
+      if (on) { Array.prototype.forEach.call(pn.querySelectorAll('.idx > .row, li, .folder'), function (x, i) { x.style.setProperty('--i', i); }); if (focus) b.focus(); if (name === 'map' && window.startGraph) window.startGraph(); }
     });
   }
   more.classList.add('tabs-on'); setTab('projects');
@@ -463,6 +543,68 @@
     b.addEventListener('keydown', function (e) { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); setTab(tabBtns[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabBtns.length) % tabBtns.length].getAttribute('data-tab'), true); });
   });
   Array.prototype.forEach.call(document.querySelectorAll('a[data-tab]'), function (a) { a.addEventListener('click', function () { setTab(a.getAttribute('data-tab')); }); });
+  /* ---------- map: projects, notes and jobs as a linked graph ---------- */
+  (function () {
+    var svg = document.getElementById('graph'), NS = 'http://www.w3.org/2000/svg';
+    var N = [
+      ['fet', 'Nanowire FET', 'case'], ['dbs', 'DBS recordings', 'case'], ['agent', 'Materials agent', 'case'], ['wires', 'Metal nanowires', 'case'], ['lenia', 'Artificial life', 'case'],
+      ['capstone', 'Dental composite', 'case'], ['breakout', 'Breakout agents', 'case'], ['organoid', 'Organoid-on-chip', 'case'], ['sputter', 'Sputter simulator', 'case'], ['toyota', 'Toyota challenge', 'case'],
+      ['christie', 'Christie Digital', 'job'], ['fluidai', 'FluidAI Medical', 'job'], ['batteries', 'Institute of Batteries', 'job'], ['ttc', 'TTC', 'job'], ['uoft', 'U of T', 'job'], ['waterloo', 'Waterloo', 'job'],
+      ['sem', 'SEM', 'note'], ['eis', 'EIS and CV', 'note'], ['xrd', 'XRD', 'note'], ['dls', 'DLS, UV–Vis', 'note'], ['qd', 'Quantum dots', 'note'], ['spion', 'SPIONs', 'note'], ['afm', 'AFM', 'note'],
+      ['t-fab', 'Fabrication', 'tag'], ['t-chr', 'Characterization', 'tag'], ['t-ml', 'ML and signals', 'tag'], ['t-sim', 'Simulation', 'tag'], ['t-nano', 'Nanomaterials', 'tag']
+    ];
+    var E = ['uoft fet', 'uoft dbs', 'uoft agent', 'uoft breakout', 'waterloo wires', 'waterloo lenia', 'waterloo capstone', 'waterloo organoid', 'waterloo sputter', 'waterloo toyota', 'waterloo christie', 'waterloo fluidai', 'waterloo batteries', 'waterloo ttc',
+      't-fab fet', 't-fab wires', 't-fab capstone', 't-fab batteries', 't-chr sem', 't-chr eis', 't-chr xrd', 't-chr dls', 't-chr afm', 't-chr christie', 't-chr fluidai',
+      't-ml dbs', 't-ml agent', 't-ml breakout', 't-ml toyota', 't-ml organoid', 't-sim sputter', 't-sim lenia', 't-sim fet', 't-sim capstone', 't-sim organoid',
+      't-nano qd', 't-nano spion', 't-nano wires', 't-nano capstone', 't-nano dls', 't-nano fet',
+      'sem wires', 'sem capstone', 'sem batteries', 'eis batteries', 'xrd batteries', 'dls qd', 'spion xrd', 'spion dls', 'afm sem'];
+    var W = 900, H = 540, nodes = [], byId = {}, edges = [], col = { 'case': 'var(--ink)', note: 'var(--teal)', job: 'var(--gold)', tag: 'var(--rose)' }, drag = null, moved = false, heat = 1, running = false;
+    var gl = document.createElementNS(NS, 'g'), gn = document.createElementNS(NS, 'g'); svg.appendChild(gl); svg.appendChild(gn);
+    N.forEach(function (n, i) {
+      var a = i / N.length * Math.PI * 2, o = { id: n[0], label: n[1], type: n[2], x: W / 2 + Math.cos(a) * 220 + (i % 3) * 9, y: H / 2 + Math.sin(a) * 170 + (i % 5) * 7, vx: 0, vy: 0, nb: [], ed: [] };
+      var g = document.createElementNS(NS, 'g'), c = document.createElementNS(NS, 'circle'), t = document.createElementNS(NS, 'text');
+      g.setAttribute('class', 'n ' + o.type); c.setAttribute('r', o.type === 'tag' ? 9 : 6.5); c.setAttribute('fill', col[o.type]); t.textContent = o.label; t.setAttribute('x', 11); t.setAttribute('y', 4);
+      g.appendChild(c); g.appendChild(t); gn.appendChild(g); o.g = g;
+      if (o.type !== 'tag') { g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button'); g.setAttribute('aria-label', 'Open ' + o.label); }
+      nodes.push(o); byId[o.id] = o;
+    });
+    E.forEach(function (e) { var k = e.split(' '), a = byId[k[0]], b = byId[k[1]], l = document.createElementNS(NS, 'line'); gl.appendChild(l); a.nb.push(b); b.nb.push(a); var ed = { a: a, b: b, l: l }; a.ed.push(ed); b.ed.push(ed); edges.push(ed); });
+    nodes.forEach(function (o) { o.g.querySelector('circle').setAttribute('r', (o.type === 'tag' ? 7 : 5) + Math.min(5, o.nb.length * 0.6)); });
+    function size() { var b = svg.getBoundingClientRect(); if (b.width) { W = b.width; H = b.height; svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); } }
+    function step() {
+      var i, j, a, b, dx, dy, d, f, kR = W < 600 ? 5200 : 11000, L = W < 600 ? 70 : 125;
+      for (i = 0; i < nodes.length; i++) for (j = i + 1; j < nodes.length; j++) {
+        a = nodes[i]; b = nodes[j]; dx = a.x - b.x; dy = a.y - b.y; d = Math.sqrt(dx * dx + dy * dy) || 1; f = kR / (d * d); dx = dx / d * f; dy = dy / d * f; a.vx += dx; a.vy += dy; b.vx -= dx; b.vy -= dy;
+      }
+      edges.forEach(function (e) { dx = e.b.x - e.a.x; dy = e.b.y - e.a.y; d = Math.sqrt(dx * dx + dy * dy) || 1; f = (d - L) * 0.04; dx = dx / d * f; dy = dy / d * f; e.a.vx += dx; e.a.vy += dy; e.b.vx -= dx; e.b.vy -= dy; });
+      nodes.forEach(function (o) {
+        o.vx += (W / 2 - 40 - o.x) * (W < 600 ? 0.008 : 0.0035); o.vy += (H / 2 - o.y) * (W < 600 ? 0.003 : 0.008);
+        if (o === drag) { o.vx = o.vy = 0; return; }
+        o.vx *= 0.82; o.vy *= 0.82; o.x += o.vx * heat; o.y += o.vy * heat;
+        o.x = Math.max(14, Math.min(W - 110, o.x)); o.y = Math.max(14, Math.min(H - 14, o.y));
+      });
+    }
+    function draw() {
+      edges.forEach(function (e) { e.l.setAttribute('x1', e.a.x); e.l.setAttribute('y1', e.a.y); e.l.setAttribute('x2', e.b.x); e.l.setAttribute('y2', e.b.y); });
+      nodes.forEach(function (o) { o.g.setAttribute('transform', 'translate(' + o.x.toFixed(1) + ' ' + o.y.toFixed(1) + ')'); });
+    }
+    function loop() { if (!running) return; step(); draw(); heat = Math.max(0.05, heat * 0.992); if (heat > 0.06 || drag) requestAnimationFrame(loop); else running = false; }
+    function kick(h) { heat = Math.max(heat, h); if (!running) { running = true; requestAnimationFrame(loop); } }
+    function hi(o) { svg.classList.toggle('hov', !!o); nodes.forEach(function (n) { n.g.classList.toggle('on', !!o && (n === o || o.nb.indexOf(n) >= 0)); }); edges.forEach(function (e) { e.l.classList.toggle('on', !!o && (e.a === o || e.b === o)); }); }
+    function openNode(o) { if (o.type === 'tag') return; sheetFrom = o.g; if (o.type === 'note') openNote(o.id); else openCase(o.id); }
+    function pt(e) { var b = svg.getBoundingClientRect(); return { x: e.clientX - b.left, y: e.clientY - b.top }; }
+    nodes.forEach(function (o) {
+      o.g.addEventListener('pointerenter', function () { if (!drag) hi(o); }); o.g.addEventListener('pointerleave', function () { if (!drag) hi(null); });
+      o.g.addEventListener('focus', function () { hi(o); }); o.g.addEventListener('blur', function () { hi(null); });
+      o.g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openNode(o); } });
+      o.g.addEventListener('pointerdown', function (e) { drag = o; moved = false; svg.setPointerCapture(e.pointerId); hi(o); kick(0.5); e.preventDefault(); });
+    });
+    svg.addEventListener('pointermove', function (e) { if (!drag) return; var q = pt(e); if (Math.abs(q.x - drag.x) + Math.abs(q.y - drag.y) > 4) moved = true; drag.x = q.x; drag.y = q.y; kick(0.5); });
+    svg.addEventListener('pointerup', function () { if (!drag) return; var o = drag; drag = null; hi(null); if (!moved) openNode(o); });
+    svg.addEventListener('pointercancel', function () { drag = null; hi(null); });
+    window.startGraph = function () { size(); if (reduce) { heat = 1; for (var i = 0; i < 400; i++) step(); draw(); } else { nodes.forEach(function (o, i) { var a = i / nodes.length * Math.PI * 2; o.x = W / 2 + Math.cos(a) * 30; o.y = H / 2 + Math.sin(a) * 30; }); kick(1); } };
+    window.addEventListener('resize', function () { if (svg.getBoundingClientRect().width) { size(); kick(0.4); } });
+  })();
   route();
 
   /* ---------- bench slider ---------- */
