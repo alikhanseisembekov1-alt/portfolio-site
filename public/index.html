@@ -23,8 +23,9 @@
 
 <header class="bar">
   <a class="name" href="#home">Alikhan Seisembekov</a>
-  <nav aria-label="Sections">
-    <a href="#fet">Work</a><a href="#experience">Experience</a><a href="#notes">Notes</a><a href="#about">Skills</a>
+  <button type="button" id="menu" aria-expanded="false" aria-controls="nav">[ Menu ]</button>
+  <nav aria-label="Sections" id="nav">
+    <a href="#fet">Work</a><a href="#experience">Experience</a><a href="#more" data-tab="notes">Notes</a><a href="#about">Skills</a>
     <details class="pop" id="contact-pop">
       <summary>[ Contact ]</summary>
       <div class="card">
@@ -35,6 +36,7 @@
         <span class="cvs">CV: <a href="/assets/cv/Seisembekov_CV_Research.pdf" target="_blank" rel="noopener">Research</a> · <a href="/assets/cv/Seisembekov_CV_Industry.pdf" target="_blank" rel="noopener">Industry R&amp;D</a></span>
       </div>
     </details>
+    <button type="button" id="replay" hidden>[ Replay intro ]</button>
     <button type="button" id="edition" aria-label="Change shimmer style">[ Foil ]</button>
   </nav>
 </header>
@@ -303,8 +305,8 @@
       </figure>
       <div class="hello-txt">
         <p class="meta">Toronto, ON<br><i>MEng Materials Science and Engineering | University of Toronto | 2027</i></p>
-        <p class="lede r">I'm a materials engineer finishing a Master of Engineering at the University of Toronto, after a Nanotechnology Engineering degree at Waterloo. I build nanowire biosensors, analyse recordings from human neurons, and write AI agents that read the materials literature.</p>
-        <p class="lede i">I'm a materials engineer with 18 months of co-op R&amp;D in medical devices, optics and battery materials, now finishing a Master of Engineering at the University of Toronto. I build and test sensors, automate measurements, and ship analysis pipelines.</p>
+        <p class="lede r">I build nanowire biosensors, analyse recordings from human neurons, and write AI agents that read the materials literature.</p>
+        <p class="lede i">18 months of co-op R&amp;D in medical devices, optics and battery materials. I build and test sensors, automate measurements, and ship analysis pipelines.</p>
       </div>
     </div>
     <h1>Materials <span class="x">×</span><br>Neuro <span class="x">×</span> AI</h1>
@@ -325,7 +327,7 @@
       </div>
       <a class="brk r" href="#experience">[ Experience and education ]</a><a class="brk i" href="#experience">[ Jump to experience ]</a>
     </div>
-    <p class="hint">[ scroll ] <button type="button" class="brk" id="replay" hidden>[ Replay intro ]</button></p>
+    <p class="hint">[ scroll ]</p>
   </section>
 
   <section class="screen" id="fet">
@@ -419,28 +421,37 @@
     <div class="counter">[ INDEX ]</div>
     <h2>EVERYTHING ELSE</h2>
 
+    <div class="tabs" id="tabs" role="tablist" aria-label="Index folders">
+      <button type="button" role="tab" id="tb-projects" data-tab="projects" aria-controls="tab-projects" aria-selected="true"><span class="tab-lip" aria-hidden="true"></span>Projects <span class="count">9</span></button>
+      <button type="button" role="tab" id="tb-notes" data-tab="notes" aria-controls="tab-notes" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Field notes <span class="count">4</span></button>
+      <button type="button" role="tab" id="tb-honours" data-tab="honours" aria-controls="tab-honours" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Honours<span class="wide-only">&nbsp;and manuscripts</span> <span class="count">6</span></button>
+    </div>
+
+    <div class="tabpanel on" id="tab-projects" role="tabpanel" aria-labelledby="tb-projects">
     <div class="block">
       <h3>More projects</h3>
       <div class="idx">
         <div class="row"><span class="n">06</span><b>Learning to play: reinforcement vs. imitation learning on Atari Breakout</b><span class="ctx">MIE1517 Deep Learning · U of T · Fall 2026</span><span class="res">PyTorch · team of 4 · in progress</span></div>
         <div class="row"><span class="n">07</span><b>Self-healing dental composite</b><span class="ctx">Capstone, team lead · Waterloo · 2024–26</span><span class="res">~40 µm microcapsules · target ≥65% healing</span></div>
-        <div class="row"><span class="n">08</span><b>Carbon nanomaterial supercapacitor</b><span class="ctx">NE 455D lab · Waterloo · Winter 2026</span><span class="res">92 F/g · ESR 1.4 Ω · 3.2 Wh/kg</span></div>
-        <div class="row"><span class="n">09</span><b>PDMS microfluidic reactor for gold nanoparticles</b><span class="ctx">NE 454C lab · Waterloo · Fall 2025</span><span class="res">33–50 nm particles by DLS</span></div>
+        <button type="button" class="row note" data-note="eis"><span class="n">08</span><b>Carbon nanomaterial supercapacitor</b><span class="ctx">NE 455D lab · Waterloo · Winter 2026</span><span class="res">92 F/g · ESR 1.4 Ω · 3.2 Wh/kg · note →</span></button>
+        <button type="button" class="row note" data-note="dls"><span class="n">09</span><b>PDMS microfluidic reactor for gold nanoparticles</b><span class="ctx">NE 454C lab · Waterloo · Fall 2025</span><span class="res">33–50 nm particles by DLS · note →</span></button>
         <div class="row"><span class="n">10</span><b>Brain organoid-on-chip: review and proposal</b><span class="ctx">NE 487 Microfluidics · Waterloo · Winter 2026</span><span class="res">Dual-gradient SHH/WNT device concept</span></div>
         <div class="row"><span class="n">11</span><b>Monte Carlo simulator of sputter deposition</b><span class="ctx">Waterloo Hacker Fab · 2024–25</span><span class="res">10⁵+ particle trajectories on GPU</span></div>
-        <div class="row"><span class="n">12</span><b>Battery materials research</b><span class="ctx">Institute of Batteries · Astana · 2023</span><span class="res">50+ cells · 3 invention disclosures</span></div>
       </div>
     </div>
 
     <div class="folder" id="archive">
       <button type="button" class="folder-tab" aria-expanded="false" aria-controls="archive-body"><span class="tab-lip" aria-hidden="true"></span><span>Archive</span><span class="ctx">2021–2025 · earlier coursework and team projects</span><span class="count">3</span><span class="chev" aria-hidden="true">+</span></button>
       <div class="folder-body" id="archive-body" aria-hidden="true"><div class="folder-in idx">
-        <div class="row"><span class="n">13</span><b>Attention-state classification</b><span class="ctx">SYDE 522 · Waterloo · 2025</span><span class="res">87% F1</span></div>
-        <div class="row"><span class="n">14</span><b>Monte Carlo radiation transport</b><span class="ctx">NE 451 · Waterloo · 2024</span><span class="res">Within 5% of analytical models</span></div>
-        <div class="row"><span class="n">15</span><b>Radiation shielding nanomaterials</b><span class="ctx">Waterloo Rocketry payload team · 2021–22</span><span class="res">BNNT vs. Gd₂O₃ comparison</span></div>
+        <div class="row"><span class="n">12</span><b>Attention-state classification</b><span class="ctx">SYDE 522 · Waterloo · 2025</span><span class="res">87% F1</span></div>
+        <div class="row"><span class="n">13</span><b>Monte Carlo radiation transport</b><span class="ctx">NE 451 · Waterloo · 2024</span><span class="res">Within 5% of analytical models</span></div>
+        <div class="row"><span class="n">14</span><b>Radiation shielding nanomaterials</b><span class="ctx">Waterloo Rocketry payload team · 2021–22</span><span class="res">BNNT vs. Gd₂O₃ comparison</span></div>
       </div></div>
     </div>
 
+    </div>
+
+    <div class="tabpanel" id="tab-notes" role="tabpanel" aria-labelledby="tb-notes">
     <div class="block" id="notes">
       <h3>Field notes</h3>
       <div class="idx">
@@ -451,6 +462,9 @@
       </div>
     </div>
 
+    </div>
+
+    <div class="tabpanel" id="tab-honours" role="tabpanel" aria-labelledby="tb-honours">
     <div class="block">
       <h3>Competitions and honours</h3>
       <ul class="list">
@@ -467,6 +481,7 @@
         <li><span class="yr">2026</span><span><b>Evolving morphogenetic dynamics in Lenia-like continuous cellular automata.</b> Unpublished manuscript, University of Waterloo.</span></li>
         <li><span class="yr">2023</span><span><b>Three technical invention disclosures</b> on Li/Ni extraction and NCM811 cathode doping, Institute of Batteries.</span></li>
       </ul>
+    </div>
     </div>
   </section>
 

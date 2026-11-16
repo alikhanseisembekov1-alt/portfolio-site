@@ -164,16 +164,32 @@
     sheetNow = { kind: kind, id: id };
     sheet.hidden = false; sheet.scrollTop = 0; docEl.style.overflow = 'hidden';
     sheet.classList.remove('in', 'out'); void sheet.offsetWidth; sheet.classList.add('in');
-    var ttl = document.getElementById('sheet-title'), full = ttl.textContent, step = 0;
-    if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-      var G = 'ABCDEFGHIKLMNOPRSTUVXZ', iv = setInterval(function () {
-        step += 2; var out = '';
-        for (var i = 0; i < full.length; i++) out += (i < step || !/[A-Za-z]/.test(full[i])) ? full[i] : G[Math.floor(Math.random() * G.length)];
-        ttl.textContent = out; if (step >= full.length) { clearInterval(iv); ttl.textContent = full; }
-      }, 24);
-    }
+    scramble(document.getElementById('sheet-title'), 420);
     document.getElementById('sheet-close').focus();
+    var h = '#' + (kind === 'note' ? 'note-' : 'file-') + id;
+    try { if (!routing && location.hash !== h) { if (/^#(file|note)-/.test(location.hash)) history.replaceState(null, '', h); else { history.pushState(null, '', h); pushed = true; } } } catch (e) {}
   }
+  var routing = false, pushed = false;
+  function scramble(node, dur) {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var full = node.textContent, G = 'ABCDEFGHIKLMNOPRSTUVXZ', t0 = performance.now();
+    node.setAttribute('aria-label', full);
+    (function tick(now) {
+      var u = Math.min(1, (now - t0) / dur), n = Math.floor(u * full.length), out = '';
+      if (u >= 1) { node.textContent = full; return; }
+      for (var i = 0; i < full.length; i++) out += (i < n || !/[A-Za-z]/.test(full[i])) ? full[i] : G[Math.floor(Math.random() * G.length)];
+      node.textContent = out; requestAnimationFrame(tick);
+    })(t0);
+  }
+  function route() {
+    var m = /^#(file|note)-([a-z0-9]+)$/.exec(location.hash);
+    routing = true;
+    if (m && m[1] === 'file' && CASES[m[2]]) openCase(m[2]);
+    else if (m && m[1] === 'note' && NOTES[m[2]]) openNote(m[2]);
+    else if (!sheet.hidden) closeCase(true);
+    routing = false;
+  }
+  window.addEventListener('popstate', route);
   function stepSheet(d) {
     if (!sheetNow) return; var list = ORDER[sheetNow.kind], k = (list.indexOf(sheetNow.id) + d + list.length) % list.length, kind = sheetNow.kind;
     sheet.classList.add('out');
@@ -202,7 +218,8 @@
     if (c.fig.extra) { var f2 = el('figure', 'photo chart wide'), i2 = el('img', 'pic free'), s2 = document.querySelector(c.fig.extra); i2.src = s2.src; i2.alt = s2.alt; f2.appendChild(i2); f2.appendChild(el('figcaption', '', c.fig.extraCap)); f2.style.setProperty('--rot', '0deg'); sheetMain.appendChild(f2); }
     fillMeta(c, c.stack); showSheet(c.kind || 'case', id);
   }
-  function closeCase() { if (sheet.hidden) return; sheet.hidden = true; sheetNow = null; sheet.classList.remove('in', 'out'); docEl.style.overflow = ''; if (sheetFrom) sheetFrom.focus(); }
+  function closeCase(fromPop) { if (sheet.hidden) return; sheet.hidden = true; sheetNow = null; sheet.classList.remove('in', 'out'); docEl.style.overflow = ''; if (sheetFrom) sheetFrom.focus();
+    try { if (fromPop !== true && /^#(file|note)-/.test(location.hash)) { if (pushed) { pushed = false; history.back(); } else history.replaceState(null, '', location.pathname + location.search); } } catch (e) {} }
   var NOTES = {
     sem: { meta: [['Filed', 'Characterization'], ['Used in', 'Metal nanowires ; microcapsules ; battery cathodes']], title: 'HOW A SCANNING ELECTRON MICROSCOPE WORKS', kicker: 'Field note 01 · Characterization',
       main: [
@@ -400,6 +417,29 @@
     });
   });
 
+  /* ---------- phone menu ---------- */
+  var bar = document.querySelector('.bar'), menuBtn = document.getElementById('menu');
+  function setMenu(o) { bar.classList.toggle('open', o); menuBtn.setAttribute('aria-expanded', String(o)); menuBtn.textContent = o ? '[ Close ]' : '[ Menu ]'; }
+  menuBtn.addEventListener('click', function () { setMenu(!bar.classList.contains('open')); });
+  Array.prototype.forEach.call(document.querySelectorAll('#nav > a'), function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+  /* ---------- index folders ---------- */
+  var more = document.getElementById('more'), tabBtns = Array.prototype.slice.call(document.querySelectorAll('#tabs [role="tab"]'));
+  function setTab(name, focus) {
+    tabBtns.forEach(function (b) {
+      var on = b.getAttribute('data-tab') === name, pn = document.getElementById('tab-' + b.getAttribute('data-tab'));
+      b.setAttribute('aria-selected', String(on)); b.tabIndex = on ? 0 : -1; pn.classList.toggle('on', on);
+      if (on) { Array.prototype.forEach.call(pn.querySelectorAll('.idx > .row, li, .folder'), function (x, i) { x.style.setProperty('--i', i); }); if (focus) b.focus(); }
+    });
+  }
+  more.classList.add('tabs-on'); setTab('projects');
+  tabBtns.forEach(function (b, i) {
+    b.addEventListener('click', function () { setTab(b.getAttribute('data-tab')); });
+    b.addEventListener('keydown', function (e) { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); setTab(tabBtns[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabBtns.length) % tabBtns.length].getAttribute('data-tab'), true); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-tab]'), function (a) { a.addEventListener('click', function () { setTab(a.getAttribute('data-tab')); }); });
+  route();
+
   /* ---------- bench slider ---------- */
   var cmp = document.getElementById('compare'), cmpIn = cmp.querySelector('input'), swept = false;
   function setCut(v) { cmp.style.setProperty('--cut', v + '%'); cmpIn.value = v; }
@@ -424,14 +464,8 @@
   if (window.IntersectionObserver && !reduce) {
     table.classList.add('anim');
     new IntersectionObserver(function (es, ob) { es.forEach(function (e) { if (e.isIntersecting) { table.classList.add('in'); ob.disconnect(); setTimeout(function () { table.classList.remove('anim', 'in'); }, 1400); } }); }, { threshold: 0.2 }).observe(table);
-    var G2 = 'ABCDEFGHIKLMNOPRSTUVXZ';
     var hob = new IntersectionObserver(function (es) { es.forEach(function (e) {
-      if (!e.isIntersecting) return; hob.unobserve(e.target);
-      var h = e.target, full = h.textContent, step = 0, iv = setInterval(function () {
-        step += 1; var out = '';
-        for (var i = 0; i < full.length; i++) out += (i < step || !/[A-Za-z]/.test(full[i])) ? full[i] : G2[Math.floor(Math.random() * G2.length)];
-        h.textContent = out; if (step >= full.length) { clearInterval(iv); h.textContent = full; }
-      }, 28);
+      if (!e.isIntersecting) return; hob.unobserve(e.target); scramble(e.target, 450);
     }); }, { threshold: 0.6 });
     Array.prototype.forEach.call(document.querySelectorAll('.screen > h2'), function (h) { hob.observe(h); });
   }
@@ -777,8 +811,8 @@
   var secs = Array.prototype.slice.call(document.querySelectorAll('.screen'));
   var W = 1, H = 1, mouse = { x: 0, y: 0, tx: 0, ty: 0 }, pSmooth = 0, time = 0, last = performance.now();
   var hudPh = document.getElementById('hud-ph'), hudRot = document.getElementById('hud-rot');
-  var posX = [1.9, 1.35, 0.75, 1.15, 1.2, 1.6, 3.3, 3.15, 0], posY = [0.35, 0.35, 0.65, 0.5, 0.45, 0.4, -0.2, 0.3, 0],
-      rotY = [0, -0.55, 0.2, 0.12, -0.3, 0.1, 1.2, 0.55, 0], rotX = [0.28, 0.28, 0.28, 0.08, 0.3, -0.5, 0.2, 0.35, 0.1], scl = [1, 1, 1, 0.9, 0.95, 1, 0.7, 0.62, 1.2];
+  var posX = [1.9, 1.35, 0.6, 1.15, 1.2, 1.6, 3.3, 3.15, 0], posY = [0.35, 0.35, 0.3, 0.5, 0.45, 0.4, -0.2, 0.3, 0],
+      rotY = [0, -0.55, 0.2, 0.12, -0.3, 0.1, 1.2, 0.55, 0], rotX = [0.28, 0.28, 0.28, 0.08, 0.3, -0.5, 0.2, 0.35, 0.1], scl = [1, 1, 0.86, 0.9, 0.95, 1, 0.7, 0.62, 1.2];
   function lerpArr(a, seg, t) { return a[seg] + (a[seg + 1] - a[seg]) * t; }
   function resize() {
     W = window.innerWidth; H = window.innerHeight;
@@ -800,7 +834,7 @@
     }
     return 0;
   }
-  var tmp = new THREE.Vector3(), skT = 0, lastSk = 0, skPos = new THREE.Vector3(), skDir = new THREE.Vector3();
+  var tmp = new THREE.Vector3(), skT = 0, lastSk = 0, hT = 0, hPh = 0, hK = 1, skPos = new THREE.Vector3(), skDir = new THREE.Vector3();
   function frame(now) {
     var dt = Math.min(0.05, (now - last) / 1000); last = now;
     if (!reduce) time += dt;
@@ -822,12 +856,23 @@
     var skK = window.skillShape || 0, onSk = !intro.on && p > S - 1.4 && skK > 0;
     if (onSk) lastSk = skK;
     skT += ((onSk ? 1 : 0) - skT) * (reduce ? 1 : 0.07);
-    if (!intro.on) { if (skT > 0.004 && lastSk) { setPair(shapes[S - 1], shapes[lastSk], 'sk' + lastSk); t = skT; } else setSeg(seg); }
+    var idle = !intro.on && !reduce && scrollP() < 0.02;
+    if (intro.on) { hPh = 0; hT = 0; }
+    hT += ((idle ? 1 : 0) - hT) * (idle ? 0.05 : 0.16);
+    if (idle) hPh += dt;
+    var hu = hPh % 7.5, hEnv = hu < 1.2 ? 0 : hu < 3 ? (hu - 1.2) / 1.8 : hu < 5.7 ? 1 : 1 - (hu - 5.7) / 1.8;
+    hEnv = hEnv * hEnv * (3 - 2 * hEnv);
+    if (hEnv === 0) hK = 1 + Math.floor(hPh / 7.5) % 5;
+    if (!intro.on) {
+      if (skT > 0.004 && lastSk) { setPair(shapes[S - 1], shapes[lastSk], 'sk' + lastSk); t = skT; }
+      else if (seg === 0 && hT > 0.02 && hEnv > 0) { setPair(shapes[0], shapes[hK], 'h' + hK); t = Math.max(hT * hEnv, ts); }
+      else setSeg(seg);
+    }
     var te = ts * ts * (3 - 2 * ts), w0 = Math.max(0, 1 - p);
     var sc = (narrow ? Math.min(1, W / 520) * 0.82 : Math.min(1.15, W / 1250 + 0.25)) * lerpArr(scl, seg, te);
     points.scale.setScalar(sc);
     points.position.x = narrow ? 0 : lerpArr(posX, seg, te) * Math.min(1, Math.max(0.55, (W - 560) / 760));
-    points.position.y = narrow ? lerpArr([1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 3.6, 0, 0], seg, te) : lerpArr(posY, seg, te);
+    points.position.y = narrow ? lerpArr([1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 3.6, 3.6, 0], seg, te) : lerpArr(posY, seg, te);
     if (skT > 0.004) {
       var tr = table.getBoundingClientRect();
       skPos.set(((tr.left + tr.width / 2) / W) * 2 - 1, 1 - ((tr.top + tr.height / 2) / H) * 2, 0.5).unproject(camera);
