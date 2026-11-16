@@ -126,6 +126,11 @@
       approach: ['Worked four co-op terms: optics at Christie Digital, medical sensors at FluidAI, battery materials at the Institute of Batteries and IT at the TTC.', 'Led the capstone team on a self-healing dental composite.', 'Built a carbon-nanomaterial supercapacitor and a PDMS microfluidic reactor for gold nanoparticles in the fourth-year labs.', 'Wrote an independent paper on evolving artificial life in Lenia.', 'Wrote a Monte Carlo sputter-deposition simulator with Waterloo Hacker Fab, and compared shielding nanomaterials on the Waterloo Rocketry payload team.'],
       result: 'Degree conferred in October 2026.', next: '',
       stack: ['Cleanroom fabrication', 'Microfluidics', 'Python', 'Characterization'], fig: { tpl: 'tpl-uw', cap: 'A sketch of the nanotechnology building' } },
+    capstone: { heads: ['The problem', 'What we did', 'Result'], meta: [['Status', 'Done'], ['Role', 'Team lead, team of three'], ['Where', 'Nanotechnology Engineering, University of Waterloo'], ['Consultant', 'Dr. Leonardo Simon']], title: 'SELF-HEALING DENTAL COMPOSITE', kicker: 'Capstone · 2024–26 · University of Waterloo',
+      problem: 'Dental fillings fail when small cracks grow under chewing and temperature swings. We set out to make a filling resin that repairs those cracks itself. Microcapsules of liquid healing agent sit in the resin, break open when a crack passes through them, and the liquid hardens in the gap.',
+      approach: ['Made poly(urea-formaldehyde) microcapsules filled with TEGDMA healing agent, over nine synthesis runs.', 'Mixed the capsules at 15 wt% into a UV-cured BisGMA/TEGDMA resin, over seven resin iterations.', 'Imaged the capsules by SEM, measured thermal stability by DSC, and ran compression and scratch tests on cured bars.', 'Wrote a Python model of capsules and a crack inside a resin cube, to estimate how much healing liquid a crack releases.'],
+      result: 'Capsules about 40 µm across formed, and the shell stayed stable to about 260 °C, well above the 150 °C target. The model predicted that a narrow crack fills at about 8% capsules by volume. We could not measure healing efficiency, because the bars broke through during pre-cracking, and compressive strength was far below target (0.26 MPa against 225 MPa). A run with double the EMA concentration formed no capsules.',
+      next: '', stack: ['Microencapsulation', 'SEM', 'DSC', 'Python'], fig: { set: 'capstone', zoom: true, extraSrc: '/assets/img/capstone-poster.jpg', extraAlt: 'Capstone symposium poster titled Advanced Dental Composites, with sections for introduction, synthesis process, results, DSC analysis and future directions', extraCap: 'Our capstone poster' } },
     lenia: { meta: [['Status', 'Done'], ['Role', 'Sole author'], ['Where', 'University of Waterloo']], title: 'EVOLVING ARTIFICIAL LIFE', kicker: '05 · Winter 2026 · Independent paper, University of Waterloo',
       problem: 'Can simple local rules be evolved to grow a target shape from noise? And does that shape then repair itself, as living tissue does?',
       approach: ['Wrote an FFT-accelerated Lenia simulation in Python.', 'Ran a (μ+λ) evolution strategy over a 7-dimensional space of kernel and growth parameters.', 'Scored target shapes with a composite fitness, then deleted parts of each organism to test self-repair.'],
@@ -135,11 +140,19 @@
   var sheet = document.getElementById('sheet'), sheetMain = document.getElementById('sheet-main'), sheetSide = document.getElementById('sheet-side'), sheetFrom = null;
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
   function part(parent, head, body) { var s = el('section'); s.appendChild(el('h3', '', head)); if (typeof body === 'string') s.appendChild(el('p', '', body)); else s.appendChild(body); parent.appendChild(s); }
-  var SETS = { wires: [ { sel: '#img-sem', cap: 'SEM · released nanowires · 5 µm scale bar' }, { sel: '#img-pores', cap: 'SEM · the porous template they grow in · 2 µm scale bar' } ] };
+  var SETS = { capstone: [
+      { src: '/assets/img/capstone-sem.jpg', alt: 'Electron microscope image of clustered round microcapsules, with a 20 micrometre scale bar', cap: 'SEM · microcapsules about 40 µm across · 2,500×' },
+      { src: '/assets/img/capstone-synthesis.jpg', alt: 'A round flask clamped in a water bath on a stirring hotplate', cap: 'Capsule synthesis in a heated water bath' },
+      { src: '/assets/img/capstone-powder.jpg', alt: 'Two glass vials of white powder on a lab bench, one fine and one clumped', cap: 'Dried capsules · a later run (left) and an early run (right)' },
+      { src: '/assets/img/capstone-bar.jpg', alt: 'A yellow cured resin bar with a crack across its middle', cap: 'Cured resin bar with capsules, cracked for the healing test' },
+      { src: '/assets/img/capstone-dsc.jpg', alt: 'Heat-flow curve against temperature with a sharp dip at 263.55 degrees Celsius', cap: 'DSC · capsule shell stable to about 260 °C' },
+      { src: '/assets/img/capstone-sem-failed.jpg', alt: 'Electron microscope image of a rough surface with no distinct capsules, with a 10 micrometre scale bar', cap: 'SEM · a failed run with double the EMA: no capsules' },
+      { src: '/assets/img/capstone-model.jpg', alt: 'Line chart: released volume over crack volume rises from 0.4 at 5 percent capsules to 1.4 at 8 percent, crossing 1.0 near 7.2 percent', cap: 'Python model · a narrow crack fills at about 8% capsules by volume' } ],
+    wires: [ { sel: '#img-sem', cap: 'SEM · released nanowires · 5 µm scale bar' }, { sel: '#img-pores', cap: 'SEM · the porous template they grow in · 2 µm scale bar' } ] };
   function buildSet(fig, key) {
     var items = SETS[key], stage = el('div', 'gstage'), cap = el('figcaption', '', items[0].cap), btn = el('button', 'gnext'), cur = 0, timer = null;
     btn.type = 'button';
-    items.forEach(function (g, i) { var s = document.querySelector(g.sel), im = el('img', i ? '' : 'on'); im.src = s.src; im.alt = s.alt; stage.appendChild(im); });
+    items.forEach(function (g, i) { var s = g.src ? g : document.querySelector(g.sel), im = el('img', i ? '' : 'on'); im.src = s.src; im.alt = s.alt; im.loading = 'lazy'; stage.appendChild(im); });
     function show(k) {
       cur = (k + items.length) % items.length;
       Array.prototype.forEach.call(stage.children, function (im, i) { im.classList.toggle('on', i === cur); });
@@ -155,7 +168,7 @@
     return fig;
   }
   Array.prototype.forEach.call(document.querySelectorAll('figure[data-set]'), function (f) { buildSet(f, f.getAttribute('data-set')); });
-  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia'], job: ['uoft', 'christie', 'fluidai', 'batteries', 'ttc', 'waterloo'], note: ['sem', 'eis', 'xrd', 'dls'] };
+  var sheetMeta = document.getElementById('sheet-meta'), sheetNow = null, ORDER = { 'case': ['fet', 'dbs', 'agent', 'wires', 'lenia', 'capstone'], job: ['uoft', 'christie', 'fluidai', 'batteries', 'ttc', 'waterloo'], note: ['sem', 'eis', 'xrd', 'dls'] };
   function fillMeta(c, stack) {
     sheetMeta.textContent = '';
     (c.meta || []).concat(stack ? [['Stack', stack.join(' ; ')]] : []).forEach(function (m) { var p = el('p'); p.appendChild(el('b', '', m[0])); p.appendChild(document.createTextNode(' : ' + m[1])); sheetMeta.appendChild(p); });
@@ -168,6 +181,17 @@
     document.getElementById('sheet-close').focus();
     var h = '#' + (kind === 'note' ? 'note-' : 'file-') + id;
     try { if (!routing && location.hash !== h) { if (/^#(file|note)-/.test(location.hash)) history.replaceState(null, '', h); else { history.pushState(null, '', h); pushed = true; } } } catch (e) {}
+  }
+  var light = null;
+  function openLight(src, alt) {
+    if (!light) {
+      light = el('div', 'light'); light.setAttribute('role', 'dialog'); light.setAttribute('aria-label', 'Full-size image');
+      var lb = el('button', 'brk', '[ Close ]'); lb.type = 'button'; light.appendChild(lb); light.appendChild(el('img'));
+      light.addEventListener('click', function () { light.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !light.hidden) { light.hidden = true; e.stopPropagation(); } }, true);
+      document.body.appendChild(light);
+    }
+    var im = light.querySelector('img'); im.src = src; im.alt = alt; light.hidden = false; light.scrollTop = 0; light.querySelector('button').focus();
   }
   var routing = false, pushed = false;
   function scramble(node, dur) {
@@ -215,7 +239,8 @@
     else if (c.fig.tpl) { fig.className = 'photo chart'; fig.appendChild(document.getElementById(c.fig.tpl).content.cloneNode(true)); }
     else { var sl = el('div', 'pic slot'); sl.appendChild(document.createTextNode('Photo slot')); sl.appendChild(el('br')); sl.appendChild(document.createTextNode(c.fig.slot)); fig.appendChild(sl); }
     if (!c.fig.set) fig.appendChild(el('figcaption', '', c.fig.cap)); fig.style.setProperty('--rot', '0deg'); sheetSide.appendChild(fig);
-    if (c.fig.extra) { var f2 = el('figure', 'photo chart wide'), i2 = el('img', 'pic free'), s2 = document.querySelector(c.fig.extra); i2.src = s2.src; i2.alt = s2.alt; f2.appendChild(i2); f2.appendChild(el('figcaption', '', c.fig.extraCap)); f2.style.setProperty('--rot', '0deg'); sheetMain.appendChild(f2); }
+    if (c.fig.extra || c.fig.extraSrc) { var f2 = el('figure', 'photo chart wide'), i2 = el('img', 'pic free'), s2 = c.fig.extraSrc ? { src: c.fig.extraSrc, alt: c.fig.extraAlt } : document.querySelector(c.fig.extra); i2.src = s2.src; i2.alt = s2.alt; i2.loading = 'lazy';
+      if (c.fig.zoom) { var zb = el('button', 'zoom', '[ View full size ]'); zb.type = 'button'; zb.addEventListener('click', function () { openLight(s2.src, s2.alt); }); i2.addEventListener('click', function () { openLight(s2.src, s2.alt); }); i2.style.cursor = 'zoom-in'; f2.appendChild(zb); } f2.appendChild(i2); f2.appendChild(el('figcaption', '', c.fig.extraCap)); f2.style.setProperty('--rot', '0deg'); sheetMain.appendChild(f2); }
     fillMeta(c, c.stack); showSheet(c.kind || 'case', id);
   }
   function closeCase(fromPop) { if (sheet.hidden) return; sheet.hidden = true; sheetNow = null; sheet.classList.remove('in', 'out'); docEl.style.overflow = ''; if (sheetFrom) sheetFrom.focus();
