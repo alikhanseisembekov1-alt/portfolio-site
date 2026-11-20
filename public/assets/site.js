@@ -142,7 +142,7 @@
     sputter: { heads: ['The problem', 'What I did', 'Result'], meta: [['Status', 'Done'], ['Role', 'Research member'], ['Where', 'Waterloo Hacker Fab']], title: 'MONTE CARLO SPUTTER DEPOSITION', kicker: 'Simulation · 2024–25 · Waterloo Hacker Fab',
       problem: 'Sputtering coats a wafer by knocking atoms off a metal target. On the way down the atoms collide with gas, so where they land, at what angle and with what energy depends on the chamber. Building a chamber to find out is slow and expensive.',
       approach: ['Wrote a Monte Carlo simulator of magnetron sputtering that follows individual atoms.', 'Modelled three stages: emission from the target, scattering in the gas, and arrival at the surface.', 'Ran it on a GPU to follow more than 100,000 trajectories.'],
-      result: 'Maps of the angle and energy of the atoms arriving at the substrate, used to think through chamber design.', next: '', stack: ['Python', 'GPU computing', 'Monte Carlo'], fig: { tpl: 'tpl-sputter', cap: 'Simulated paths from target to substrate' } },
+      result: 'Maps of the angle and energy of the atoms arriving at the substrate, used to think through chamber design.', next: '', stack: ['Python', 'GPU computing', 'Monte Carlo'], fig: { set: 'hackerfab', plain: true, tpl2: 'tpl-sputter', cap2: 'What the simulator follows: paths from target to substrate' } },
     toyota: { heads: ['The challenge', 'What we did', 'What was hard'], meta: [['When', 'May 2023'], ['Type', 'Team competition']], title: 'TOYOTA INNOVATION CHALLENGE', kicker: 'Competition · 2023',
       problem: 'Build a vision system that finds the holes on a part and guides a robotic arm or machine to place a sticker over each one.',
       approach: ['Collected images of the parts and labelled them by hand.', 'Split the labelled images into training and test sets, working in Kaggle.', 'Trained a deep-learning model to find the holes.', 'Used the detected positions as targets for the sticker applicator.'],
@@ -156,7 +156,10 @@
   var sheet = document.getElementById('sheet'), sheetMain = document.getElementById('sheet-main'), sheetSide = document.getElementById('sheet-side'), sheetFrom = null;
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
   function part(parent, head, body) { var s = el('section'); s.appendChild(el('h3', '', head)); if (typeof body === 'string') s.appendChild(el('p', '', body)); else s.appendChild(body); parent.appendChild(s); }
-  var SETS = { capstone: [
+  var SETS = { hackerfab: [
+      { src: '/assets/img/hackerfab-plasma.jpg', alt: 'Close-up through a glass bell jar: a pink-violet plasma glows in rings over a round target on a metal holder', cap: 'Plasma over the target · Hacker Fab chamber' },
+      { src: '/assets/img/hackerfab-chamber.jpg', alt: 'A glass bell-jar vacuum chamber on a metal base, glowing pink around a cylindrical holder', cap: 'The bell-jar chamber running · Feb 2026' } ],
+    capstone: [
       { src: '/assets/img/capstone-sem.jpg', alt: 'Electron microscope image of clustered round microcapsules, with a 20 micrometre scale bar', cap: 'SEM · microcapsules about 40 µm across · 2,500×' },
       { src: '/assets/img/capstone-synthesis.jpg', alt: 'A round flask clamped in a water bath on a stirring hotplate', cap: 'Capsule synthesis in a heated water bath' },
       { src: '/assets/img/capstone-powder.jpg', alt: 'Two glass vials of white powder on a lab bench, one fine and one clumped', cap: 'Dried capsules · a later run (left) and an early run (right)' },
@@ -262,7 +265,7 @@
     var ol = el('ol'); c.approach.forEach(function (a) { ol.appendChild(el('li', '', a)); }); part(sheetMain, hd[1], ol);
     part(sheetMain, hd[2], c.result);
     if (c.next) part(sheetMain, 'Next', c.next);
-    var fig = el('figure', 'photo' + (c.fig.chart ? ' chart' : '') + (c.fig.set ? ' poly' : ''));
+    var fig = el('figure', 'photo' + (c.fig.chart ? ' chart' : '') + (c.fig.set && !c.fig.plain ? ' poly' : ''));
     if (c.fig.set) { buildSet(fig, c.fig.set); }
     else if (c.fig.chart) { var s = document.createElementNS(SVGNS, 'svg'); s.setAttribute('class', 'pic plot'); s.setAttribute('id', 'sheet-chart'); s.setAttribute('viewBox', '0 0 300 225'); s.setAttribute('role', 'img'); s.setAttribute('aria-label', dbsChart.getAttribute('aria-label')); fig.appendChild(s); drawChart(s, freqIdx); }
     else if (c.fig.img) { var im = el('img', 'pic'); im.src = document.querySelector(c.fig.img).src; im.alt = document.querySelector(c.fig.img).alt; fig.appendChild(im); }
@@ -270,6 +273,7 @@
     else if (c.fig.tpl) { fig.className = 'photo chart'; fig.appendChild(document.getElementById(c.fig.tpl).content.cloneNode(true)); }
     else { var sl = el('div', 'pic slot'); sl.appendChild(document.createTextNode('Photo slot')); sl.appendChild(el('br')); sl.appendChild(document.createTextNode(c.fig.slot)); fig.appendChild(sl); }
     if (!c.fig.set) fig.appendChild(el('figcaption', '', c.fig.cap)); fig.style.setProperty('--rot', '0deg'); sheetSide.appendChild(fig);
+    if (c.fig.tpl2) { var f3 = el('figure', 'photo chart'); f3.appendChild(document.getElementById(c.fig.tpl2).content.cloneNode(true)); f3.appendChild(el('figcaption', '', c.fig.cap2)); f3.style.setProperty('--rot', '0deg'); sheetSide.appendChild(f3); }
     if (c.fig.extra || c.fig.extraSrc) { var f2 = el('figure', 'photo chart wide'), i2 = el('img', 'pic free'), s2 = c.fig.extraSrc ? { src: c.fig.extraSrc, alt: c.fig.extraAlt } : document.querySelector(c.fig.extra); i2.src = s2.src; i2.alt = s2.alt; i2.loading = 'lazy';
       if (c.fig.zoom) { var zb = el('button', 'zoom', '[ View full size ]'); zb.type = 'button'; zb.addEventListener('click', function () { openLight(s2.src, s2.alt); }); i2.addEventListener('click', function () { openLight(s2.src, s2.alt); }); i2.style.cursor = 'zoom-in'; f2.appendChild(zb); } f2.appendChild(i2); f2.appendChild(el('figcaption', '', c.fig.extraCap)); f2.style.setProperty('--rot', '0deg'); sheetMain.appendChild(f2); }
     fillMeta(c, c.stack); showSheet(c.kind || 'case', id);
