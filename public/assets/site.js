@@ -614,6 +614,9 @@
     var svg = document.getElementById('piano'), ctx = null, F = { C: 261.63, Cs: 277.18, D: 293.66, Ds: 311.13, E: 329.63, F: 349.23, Fs: 369.99, G: 392, Gs: 415.3, A: 440, As: 466.16, B: 493.88, C2: 523.25 };
     function play(n) {
       var k = svg.querySelector('[data-n="' + n + '"]'); if (k) { k.classList.add('on'); setTimeout(function () { k.classList.remove('on'); }, 260); }
+      tone(n);
+    }
+    function tone(n) {
       try {
         ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
         var o = ctx.createOscillator(), g = ctx.createGain(), t = ctx.currentTime; o.type = 'triangle'; o.frequency.value = F[n];
@@ -622,114 +625,44 @@
       } catch (e) {}
     }
     Array.prototype.forEach.call(svg.querySelectorAll('rect'), function (k) { k.addEventListener('pointerdown', function (e) { e.preventDefault(); play(k.getAttribute('data-n')); }); });
+    window.pianoTone = tone;
     document.getElementById('piano-play').addEventListener('click', function () { ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C2'].forEach(function (n, i) { setTimeout(function () { play(n); }, i * 230); }); });
   })();
 
-  /* ---------- off the clock: Ability Draft mini game ---------- */
+  /* ---------- off the clock: ear trainer ---------- */
   (function () {
-    var TAG = { stun: ['Stun', 'var(--rose)', '!'], nuke: ['Damage', 'var(--gold)', '✦'], mob: ['Mobility', 'var(--teal)', '»'], tank: ['Survival', 'var(--ink-soft)', '+'], atk: ['Attack', 'var(--ink)', '⚔'], ctl: ['Control', 'var(--violet)', '◎'] };
-    var HEROES = [
-      ['Earthshaker', [['Fissure', 'stun nuke'], ['Enchant Totem', 'atk'], ['Aftershock', 'stun nuke']], ['Echo Slam', 'nuke']],
-      ['Crystal Maiden', [['Crystal Nova', 'nuke ctl'], ['Frostbite', 'ctl nuke'], ['Arcane Aura', 'tank']], ['Freezing Field', 'nuke ctl']],
-      ['Lion', [['Earth Spike', 'stun nuke'], ['Hex', 'ctl'], ['Mana Drain', 'tank']], ['Finger of Death', 'nuke']],
-      ['Zeus', [['Arc Lightning', 'nuke'], ['Lightning Bolt', 'nuke stun'], ['Heavenly Jump', 'mob']], ['Thundergod\'s Wrath', 'nuke']],
-      ['Sven', [['Storm Hammer', 'stun nuke'], ['Great Cleave', 'atk'], ['Warcry', 'tank']], ['God\'s Strength', 'atk']],
-      ['Juggernaut', [['Blade Fury', 'nuke tank'], ['Healing Ward', 'tank'], ['Blade Dance', 'atk']], ['Omnislash', 'atk']],
-      ['Faceless Void', [['Time Walk', 'mob tank'], ['Time Dilation', 'ctl'], ['Time Lock', 'atk stun']], ['Chronosphere', 'ctl']],
-      ['Lina', [['Dragon Slave', 'nuke'], ['Light Strike Array', 'stun nuke'], ['Fiery Soul', 'atk mob']], ['Laguna Blade', 'nuke']],
-      ['Slardar', [['Guardian Sprint', 'mob'], ['Slithereen Crush', 'stun'], ['Bash of the Deep', 'atk stun']], ['Corrosive Haze', 'atk']],
-      ['Ursa', [['Earthshock', 'ctl nuke'], ['Overpower', 'atk'], ['Fury Swipes', 'atk']], ['Enrage', 'tank atk']],
-      ['Queen of Pain', [['Shadow Strike', 'nuke'], ['Blink', 'mob'], ['Scream of Pain', 'nuke']], ['Sonic Wave', 'nuke']],
-      ['Axe', [['Berserker\'s Call', 'ctl tank'], ['Battle Hunger', 'nuke'], ['Counter Helix', 'nuke tank']], ['Culling Blade', 'nuke']],
-      ['Windranger', [['Shackleshot', 'stun'], ['Powershot', 'nuke'], ['Windrun', 'mob tank']], ['Focus Fire', 'atk']],
-      ['Necrophos', [['Death Pulse', 'nuke tank'], ['Ghost Shroud', 'tank'], ['Heartstopper Aura', 'nuke']], ['Reaper\'s Scythe', 'nuke stun']],
-      ['Tidehunter', [['Gush', 'nuke ctl'], ['Kraken Shell', 'tank'], ['Anchor Smash', 'nuke']], ['Ravage', 'stun nuke']],
-      ['Drow Ranger', [['Frost Arrows', 'atk ctl'], ['Gust', 'ctl'], ['Multishot', 'nuke atk']], ['Marksmanship', 'atk']]
-    ];
-    var COMBOS = [
-      ['Fury Swipes', 'Multishot', 'Fury Swipes stacks on every arrow'], ['Fury Swipes', 'Overpower', 'fast hits stack Fury Swipes'], ['Fury Swipes', 'Time Lock', 'extra hits stack Fury Swipes'],
-      ['Fury Swipes', 'Focus Fire', 'very fast attacks stack Fury Swipes'], ['Berserker\'s Call', 'Counter Helix', 'taunt, then spin'], ['Berserker\'s Call', 'Blade Fury', 'taunt inside a spinning blade'],
-      ['Echo Slam', 'Blink', 'jump in, slam'], ['Echo Slam', 'Heavenly Jump', 'jump in, slam'], ['Chronosphere', 'Omnislash', 'freeze, then slash'], ['Great Cleave', 'Marksmanship', 'splash on a strong attack'],
-      ['Fiery Soul', 'Arc Lightning', 'cheap spell feeds Fiery Soul'], ['Bash of the Deep', 'Time Lock', 'two bash chances'], ['Laguna Blade', 'Hex', 'disable, then delete'], ['Finger of Death', 'Hex', 'disable, then delete'],
-      ['Ravage', 'Blink', 'jump in, ravage'], ['Corrosive Haze', 'Great Cleave', 'armour cut on a cleave']
-    ];
-    var root = document.getElementById('ad'), poolEl = document.getElementById('ad-pool'), plEl = document.getElementById('ad-players'), st = document.getElementById('ad-status'), bar = document.getElementById('ad-bar'), res = document.getElementById('ad-result'), go = document.getElementById('ad-start');
-    var P = [{ n: 'You', s: 'You' }, { n: 'Bot Red', s: 'R' }, { n: 'Bot Blue', s: 'B' }, { n: 'Bot Gold', s: 'G' }], pool = [], order = [], step = 0, timer = null, tEnd = 0, raf = 0, running = false;
-    function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
-    function canTake(p, a) { var u = p.picks.filter(function (x) { return x.ult; }).length, b = p.picks.length - u; return !a.by && (a.ult ? u < 1 : b < 3); }
-    function comboWith(list, a) { return COMBOS.filter(function (c) { return list.some(function (x) { return (x.name === c[0] && a.name === c[1]) || (x.name === c[1] && a.name === c[0]); }); }); }
-    function value(p, a) {
-      var v = 1 + Math.random() * 1.6, have = {}; p.picks.forEach(function (x) { x.tags.forEach(function (t) { have[t] = (have[t] || 0) + 1; }); });
-      a.tags.forEach(function (t) { v += t === 'stun' ? 1.2 : 0.8; if (!have[t]) v += 0.6; }); if (a.ult) v += 1.2;
-      return v + comboWith(p.picks, a).length * 3;
+    var keys = document.getElementById('et-keys'), go = document.getElementById('et-go'), again = document.getElementById('et-again'), sh = document.getElementById('et-sharps'), sc = document.getElementById('et-score'), msg = document.getElementById('et-msg');
+    var NAT = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C2'], SH = ['Cs', 'Ds', 'Fs', 'Gs', 'As'], LBL = { C: 'C', D: 'D', E: 'E', F: 'F', G: 'G', A: 'A', B: 'B', C2: 'high C', Cs: 'C♯', Ds: 'D♯', Fs: 'F♯', Gs: 'G♯', As: 'A♯' };
+    var target = null, n = 0, right = 0, streak = 0, best = 0, busy = false, lock = false;
+    try { best = +localStorage.getItem('etBest') || 0; } catch (e) {}
+    Array.prototype.forEach.call(keys.querySelectorAll('.bk'), function (k) { k.classList.add('sharp-off'); });
+    function setLevel() { keys.classList.toggle('off', !sh.checked); }
+    sh.addEventListener('change', setLevel); setLevel();
+    function show() { sc.textContent = 'Score ' + right + ' / ' + n + ' · streak ' + streak + (best ? ' · best ' + best : ''); }
+    function key(nm) { return keys.querySelector('[data-n="' + nm + '"]'); }
+    function flash(nm, c, ms) { var k = key(nm); if (!k) return; k.classList.add(c); setTimeout(function () { k.classList.remove(c); }, ms); }
+    function ask() {
+      busy = true; lock = false; msg.className = 'et-msg'; msg.textContent = 'Listen: C, then the mystery note…';
+      window.pianoTone('C'); flash('C', 'ans', 400);
+      setTimeout(function () { window.pianoTone(target); busy = false; msg.textContent = 'Note ' + (n + 1) + ' of 10. Which key was it?'; }, 900);
     }
-    function render() {
-      poolEl.textContent = '';
-      var heroes = {}; pool.forEach(function (a) { (heroes[a.hero] = heroes[a.hero] || []).push(a); });
-      Object.keys(heroes).forEach(function (h) {
-        var col = el('div', 'ad-hero'); col.appendChild(el('b', '', h));
-        heroes[h].forEach(function (a) {
-          var t = TAG[a.tags[0]], b = el('button', 'ab' + (a.ult ? ' ult' : '') + (a.by ? ' taken' : '') + (a.by === P[0] ? ' mine' : ''));
-          b.type = 'button'; var g = el('span', 'gl', t[2]); g.style.background = t[1]; b.appendChild(g); b.appendChild(el('span', '', a.name + (a.ult ? ' ★' : '')));
-          if (a.by) b.setAttribute('data-by', a.by.s);
-          b.setAttribute('aria-label', a.name + (a.ult ? ', ultimate' : '') + ' (' + h + '). ' + a.tags.map(function (x) { return TAG[x][0]; }).join(', ') + (a.by ? '. Taken by ' + a.by.n : ''));
-          var mine = running && order[step] === P[0];
-          b.disabled = !mine || !canTake(P[0], a);
-          b.addEventListener('click', function () { if (running && order[step] === P[0] && canTake(P[0], a)) take(P[0], a); });
-          a.btn = b; col.appendChild(b);
-        });
-        poolEl.appendChild(col);
+    function newQ() { var pool = sh.checked ? NAT.slice(1).concat(SH) : NAT.slice(1); var t; do { t = pool[Math.floor(Math.random() * pool.length)]; } while (t === target && pool.length > 1); target = t; ask(); }
+    go.addEventListener('click', function () { n = 0; right = 0; streak = 0; show(); again.disabled = false; go.textContent = '[ Restart ]'; newQ(); });
+    again.addEventListener('click', function () { if (target && !lock) ask(); });
+    Array.prototype.forEach.call(keys.querySelectorAll('rect'), function (k) {
+      k.addEventListener('pointerdown', function (e) {
+        e.preventDefault(); var nm = k.getAttribute('data-n'); window.pianoTone(nm);
+        if (!target || busy || lock) return;
+        lock = true; n++;
+        if (nm === target) { right++; streak++; flash(nm, 'hit', 700); msg.className = 'et-msg good'; msg.textContent = 'Yes, ' + LBL[target] + '.'; }
+        else { streak = 0; flash(nm, 'miss', 700); flash(target, 'ans', 1200); msg.className = 'et-msg bad'; msg.textContent = 'That was ' + LBL[nm] + '. The note was ' + LBL[target] + '.'; setTimeout(function () { window.pianoTone(target); }, 500); }
+        if (right > best && n === 10) { best = right; try { localStorage.setItem('etBest', best); } catch (e) {} }
+        show();
+        if (n >= 10) { target = null; again.disabled = true; go.textContent = '[ Play again ]'; setTimeout(function () { msg.className = 'et-msg'; msg.textContent = 'Round over: ' + right + ' out of 10. ' + (right >= 8 ? 'Good ears.' : right >= 5 ? 'Getting there.' : 'Try comparing each note to the C.'); }, 1300); }
+        else setTimeout(newQ, 1500);
       });
-      plEl.textContent = '';
-      P.forEach(function (p) {
-        var d = el('div', 'pl' + (running && order[step] === p ? ' turn' : '')), ol = el('ol');
-        d.appendChild(el('b', '', p.n)); p.picks.forEach(function (x) { ol.appendChild(el('li', '', x.name + (x.ult ? ' ★' : ''))); }); d.appendChild(ol); plEl.appendChild(d);
-      });
-      root.classList.toggle('waiting', running && order[step] !== P[0]);
-    }
-    function tick() { var left = Math.max(0, tEnd - performance.now()); bar.style.width = (left / 10000 * 100) + '%'; if (left > 0 && running) raf = requestAnimationFrame(tick); }
-    function next() {
-      clearTimeout(timer); cancelAnimationFrame(raf); bar.style.width = '0';
-      if (step >= order.length) return finish();
-      var p = order[step], rd = Math.floor(step / 4) + 1; render();
-      if (p === P[0]) {
-        var needU = P[0].picks.length - P[0].picks.filter(function (x) { return x.ult; }).length >= 3;
-        st.textContent = 'Round ' + rd + ' of 4 · your pick' + (needU ? ' (an ultimate, ★)' : '') + '.';
-        tEnd = performance.now() + 10000; tick();
-        timer = setTimeout(function () { var ok = pool.filter(function (a) { return canTake(P[0], a); }); st.textContent = 'Time ran out, so a random spell was picked for you.'; take(P[0], ok[Math.floor(Math.random() * ok.length)]); }, 10000);
-      } else {
-        st.textContent = 'Round ' + rd + ' of 4 · ' + p.n + ' is picking…';
-        timer = setTimeout(function () { var ok = pool.filter(function (a) { return canTake(p, a); }).sort(function (x, y) { return value(p, y) - value(p, x); }); take(p, ok[0]); }, reduce ? 150 : 650 + Math.random() * 500);
-      }
-    }
-    function take(p, a) { if (!a) return; a.by = p; p.picks.push(a); step++; render(); if (a.btn && !reduce) a.btn.classList.add('flash'); next(); }
-    function score(p) {
-      var c = {}, combos = [], i, j; p.picks.forEach(function (x) { x.tags.forEach(function (t) { c[t] = (c[t] || 0) + 1; }); });
-      for (i = 0; i < p.picks.length; i++) for (j = i + 1; j < p.picks.length; j++) COMBOS.forEach(function (k) { if ((k[0] === p.picks[i].name && k[1] === p.picks[j].name) || (k[1] === p.picks[i].name && k[0] === p.picks[j].name)) combos.push(k); });
-      var role = (c.atk || 0) >= 3 ? 'Right-click carry' : (c.stun || 0) >= 2 ? 'Initiator' : (c.nuke || 0) >= 3 ? 'Spell nuker' : (c.tank || 0) >= 2 ? 'Frontliner' : (c.mob || 0) >= 1 && (c.nuke || 0) >= 2 ? 'Ganker' : 'Utility hybrid';
-      var sc = Math.min(100, Math.round(30 + Object.keys(c).length * 7 + (c.stun ? 8 : 0) + (c.mob ? 6 : 0) + combos.length * 14 + Math.min(10, p.picks.reduce(function (s, x) { return s + x.tags.length; }, 0))));
-      return { c: c, combos: combos, role: role, sc: sc };
-    }
-    function finish() {
-      running = false; render(); st.textContent = 'Draft complete.'; go.textContent = '[ Draft again ]';
-      var me = score(P[0]), best = P.slice(1).map(function (p) { return [p, score(p).sc]; }).sort(function (a, b) { return b[1] - a[1]; })[0];
-      res.textContent = ''; res.hidden = false;
-      res.appendChild(el('h4', '', me.role + ' · ' + me.sc + ' / 100'));
-      res.appendChild(el('p', '', 'Your build: ' + P[0].picks.map(function (x) { return x.name; }).join(', ') + '.'));
-      var bars = el('div', 'bars'); Object.keys(TAG).forEach(function (t) { bars.appendChild(el('span', '', TAG[t][0])); var i = el('i'); i.style.width = Math.min(100, (me.c[t] || 0) * 25) + '%'; i.style.background = TAG[t][1]; bars.appendChild(i); }); res.appendChild(bars);
-      res.appendChild(el('p', '', me.combos.length ? 'Combos found: ' + me.combos.map(function (k) { return k[0] + ' + ' + k[1] + ' (' + k[2] + ')'; }).join('; ') + '.' : 'No classic combos this time. Look for pairs like Fury Swipes with any fast-hitting spell.'));
-      res.appendChild(el('p', '', best[1] > me.sc ? best[0].n + ' drafted a stronger-looking build (' + best[1] + '). Run it back?' : 'Best build at the table. Nice draft.'));
-    }
-    go.addEventListener('click', function () {
-      clearTimeout(timer); pool = [];
-      shuffle(HEROES.slice()).slice(0, 6).forEach(function (h) { h[1].forEach(function (a) { pool.push({ hero: h[0], name: a[0], tags: a[1].split(' '), ult: false }); }); pool.push({ hero: h[0], name: h[2][0], tags: h[2][1].split(' '), ult: true }); });
-      P.forEach(function (p) { p.picks = []; }); var seat = shuffle(P.slice()); order = [];
-      for (var r = 0; r < 4; r++) order = order.concat(r % 2 ? seat.slice().reverse() : seat);
-      step = 0; running = true; res.hidden = true; go.textContent = '[ Restart ]'; next();
     });
-    P.forEach(function (p) { p.picks = []; });
-    shuffle(HEROES.slice()).slice(0, 6).forEach(function (h) { h[1].forEach(function (a) { pool.push({ hero: h[0], name: a[0], tags: a[1].split(' '), ult: false }); }); pool.push({ hero: h[0], name: h[2][0], tags: h[2][1].split(' '), ult: true }); });
-    render();
+    show();
   })();
 
   route();
