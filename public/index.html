@@ -25,7 +25,7 @@
   <a class="name" href="#home">Alikhan Seisembekov</a>
   <button type="button" id="menu" aria-expanded="false" aria-controls="nav">[ Menu ]</button>
   <nav aria-label="Sections" id="nav">
-    <a href="#fet">Work</a><a href="#experience">Experience</a><a href="#more" data-tab="notes">Notes</a><a href="#about">Skills</a>
+    <a href="#fet">Work</a><a href="#experience">Experience</a><a href="#more" data-tab="notes">Notes</a><a href="#more" data-tab="life">Off the clock</a><a href="#about">Skills</a>
     <details class="pop" id="contact-pop">
       <summary>[ Contact ]</summary>
       <div class="card">
@@ -555,6 +555,7 @@
       <button type="button" role="tab" id="tb-projects" data-tab="projects" aria-controls="tab-projects" aria-selected="true"><span class="tab-lip" aria-hidden="true"></span>Projects <span class="count">9</span></button>
       <button type="button" role="tab" id="tb-notes" data-tab="notes" aria-controls="tab-notes" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Field notes <span class="count">7</span></button>
       <button type="button" role="tab" id="tb-map" data-tab="map" aria-controls="tab-map" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Map</button>
+      <button type="button" role="tab" id="tb-life" data-tab="life" aria-controls="tab-life" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Off the clock</button>
       <button type="button" role="tab" id="tb-honours" data-tab="honours" aria-controls="tab-honours" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Honours<span class="wide-only">&nbsp;and manuscripts</span> <span class="count">6</span></button>
     </div>
 
@@ -603,6 +604,41 @@
         <p class="graph-hint">How the projects, jobs and notes connect. Hover a node to see its links, drag to rearrange, click to open.</p>
         <svg id="graph" role="group" aria-label="Map of projects, jobs and field notes, linked by the skills and places they share"></svg>
         <div class="legend gl"><span><span class="dot" style="background:var(--ink)"></span>Project</span><span><span class="dot" style="background:var(--teal)"></span>Field note</span><span><span class="dot" style="background:var(--gold)"></span>Job or degree</span><span><span class="dot" style="background:var(--rose)"></span>Theme</span></div>
+      </div>
+    </div>
+
+    <div class="tabpanel" id="tab-life" role="tabpanel" aria-labelledby="tb-life">
+      <p class="life-lede">What I do when I'm not in a lab or a notebook.</p>
+      <div class="life">
+        <article class="hob">
+          <svg class="hob-art" id="piano" viewBox="0 0 292 140" role="group" aria-label="A one-octave piano keyboard. Click or tap a key to play it."><rect class="wk" data-n="C" x="10" y="10" width="33" height="120" rx="2"/><rect class="wk" data-n="D" x="44" y="10" width="33" height="120" rx="2"/><rect class="wk" data-n="E" x="78" y="10" width="33" height="120" rx="2"/><rect class="wk" data-n="F" x="112" y="10" width="33" height="120" rx="2"/><rect class="wk" data-n="G" x="146" y="10" width="33" height="120" rx="2"/><rect class="wk" data-n="A" x="180" y="10" width="33" height="120" rx="2"/><rect class="wk" data-n="B" x="214" y="10" width="33" height="120" rx="2"/><rect class="wk" data-n="C2" x="248" y="10" width="33" height="120" rx="2"/><rect class="bk" data-n="Cs" x="33" y="10" width="21" height="74" rx="2"/><rect class="bk" data-n="Ds" x="67" y="10" width="21" height="74" rx="2"/><rect class="bk" data-n="Fs" x="135" y="10" width="21" height="74" rx="2"/><rect class="bk" data-n="Gs" x="169" y="10" width="21" height="74" rx="2"/><rect class="bk" data-n="As" x="203" y="10" width="21" height="74" rx="2"/></svg>
+          <h3>Piano</h3>
+          <p class="hob-meta">Learning · two months in</p>
+          <p>Started from zero two months ago. Still at the stage where both hands at once is the hard part.</p>
+          <p class="hob-try">Tap the keys. <button type="button" class="brk" id="piano-play">[ Play a scale ]</button></p>
+        </article>
+        <article class="hob">
+          <svg class="hob-art" viewBox="0 0 292 140" role="img" aria-label="A stick figure doing pull-ups on a bar, rising and lowering in a loop.">
+            <path class="ln" d="M60 22 H232 M70 22 V132 M222 22 V132 M40 132 H252"/>
+            <g class="lifter"><circle class="ln" cx="146" cy="44" r="10"/><path class="ln" d="M146 54 V92 M146 92 L134 124 M146 92 L158 124 M146 62 L128 26 M146 62 L164 26"/></g>
+          </svg>
+          <h3>Calisthenics</h3>
+          <p class="hob-meta">Training · for a long time</p>
+          <p>Bodyweight training has been the constant through every co-op and study term: a bar, a floor and nothing to set up.</p>
+        </article>
+        <article class="hob dota">
+          <h3>Dota 2 · Ability Draft</h3>
+          <p class="hob-meta">Playing · the mode where heroes are built from a shared pool of spells</p>
+          <p>In Ability Draft every player gets a random hero, and everyone takes turns drafting spells from a shared pool: three regular abilities and one ultimate each. The fun is in finding combinations nobody planned. Try a short version below.</p>
+          <div class="ad" id="ad">
+            <div class="ad-top"><span class="ad-status" id="ad-status" aria-live="polite">Four players, four rounds, snake order. You have 10 seconds a pick.</span><button type="button" class="brk" id="ad-start">[ Start draft ]</button></div>
+            <div class="ad-timer"><span id="ad-bar"></span></div>
+            <div class="ad-pool" id="ad-pool"></div>
+            <div class="ad-players" id="ad-players"></div>
+            <div class="ad-result" id="ad-result" hidden></div>
+            <p class="ad-fine">A practice toy: a small pool from the real game, bots that draft by simple rules, and a rough build score that is not based on match statistics. For real Ability Draft numbers, see windrun.io.</p>
+          </div>
+        </article>
       </div>
     </div>
 
