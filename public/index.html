@@ -353,6 +353,21 @@
   <text x="210" y="312" text-anchor="middle">emission · scattering · arrival</text>
 </svg>
 </template>
+<template id="tpl-frontier">
+<svg class="dia" viewBox="0 0 300 500" role="img" aria-label="A vertical timeline of 2026 from January to October, with eight dots for the advances in this note, coloured by field.">
+  <path class="lead" d="M70 24 V420"/><g><circle cx="70" cy="40" r="7" fill="var(--teal)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="0.0s" repeatCount="indefinite"/></circle><text class="b" x="20" y="44">Jan</text><text x="90" y="44">Superfluid stops</text></g><g><circle cx="70" cy="92" r="7" fill="var(--rose)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="0.3s" repeatCount="indefinite"/></circle><text class="b" x="20" y="96">Mar</text><text x="90" y="96">151 K record</text></g><g><circle cx="70" cy="144" r="7" fill="var(--rose)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="0.6s" repeatCount="indefinite"/></circle><text class="b" x="20" y="148">Apr</text><text x="90" y="148">Nickelate films</text></g><g><circle cx="70" cy="196" r="7" fill="var(--gold)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="0.9s" repeatCount="indefinite"/></circle><text class="b" x="20" y="200">May</text><text x="90" y="200">Faster folding</text></g><g><circle cx="70" cy="248" r="7" fill="var(--ink)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="1.2s" repeatCount="indefinite"/></circle><text class="b" x="20" y="252">Jun</text><text x="90" y="252">Laser power beaming</text></g><g><circle cx="70" cy="300" r="7" fill="var(--gold)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="1.5s" repeatCount="indefinite"/></circle><text class="b" x="20" y="304">Jul</text><text x="90" y="304">DNA jitterbug</text></g><g><circle cx="70" cy="352" r="7" fill="var(--ink)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="1.8s" repeatCount="indefinite"/></circle><text class="b" x="20" y="356">Sep</text><text x="90" y="356">Joint laser program</text></g><g><circle cx="70" cy="404" r="7" fill="var(--violet)"><animate attributeName="r" values="7;10;7" dur="2.4s" begin="2.1s" repeatCount="indefinite"/></circle><text class="b" x="20" y="408">Oct</text><text x="90" y="408">5 errors / million</text></g>
+  <g transform="translate(20 450)"><circle cx="6" cy="0" r="5" fill="var(--gold)"/><text x="16" y="4">DNA</text><circle cx="66" cy="0" r="5" fill="var(--rose)"/><text x="76" y="4">Supercond.</text><circle cx="160" cy="0" r="5" fill="var(--teal)"/><text x="170" y="4">Quantum fluids</text></g>
+  <g transform="translate(20 470)"><circle cx="6" cy="0" r="5" fill="var(--violet)"/><text x="16" y="4">Computing</text><circle cx="96" cy="0" r="5" fill="var(--ink)"/><text x="106" y="4">Defence</text></g>
+</svg>
+</template>
+<template id="tpl-jitter">
+<svg class="dia" viewBox="0 0 300 260" role="img" aria-label="Four triangular faces pressed together around a centre spread outward and open a square gap between them, then close again: a flat sketch of the jitterbug motion from a compact octahedron to an open cuboctahedron.">
+  <rect class="soft" x="122" y="92" width="56" height="56"><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.4;0.6;1" dur="5s" repeatCount="indefinite"/></rect>
+  <g transform="rotate(0 150 120)"><g><path class="fillc" d="M150 120 L122 72 L178 72 Z"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -26;0 -26;0 0" keyTimes="0;0.4;0.6;1" dur="5s" repeatCount="indefinite"/></g></g><g transform="rotate(90 150 120)"><g><path class="fillc" d="M150 120 L122 72 L178 72 Z"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -26;0 -26;0 0" keyTimes="0;0.4;0.6;1" dur="5s" repeatCount="indefinite"/></g></g><g transform="rotate(180 150 120)"><g><path class="fillc" d="M150 120 L122 72 L178 72 Z"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -26;0 -26;0 0" keyTimes="0;0.4;0.6;1" dur="5s" repeatCount="indefinite"/></g></g><g transform="rotate(270 150 120)"><g><path class="fillc" d="M150 120 L122 72 L178 72 Z"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -26;0 -26;0 0" keyTimes="0;0.4;0.6;1" dur="5s" repeatCount="indefinite"/></g></g>
+  <text x="150" y="232" text-anchor="middle">closed: DNA “jacks” hold it shut</text>
+  <text x="150" y="250" text-anchor="middle">open: about 100 pN of push</text>
+</svg>
+</template>
 <template id="tpl-ttc">
 <svg class="dia" viewBox="0 0 420 200" role="img" aria-label="Flow sketch: account lists from Active Directory and the mainframe feed a Python and Excel script, which produces the access-review report.">
   <rect class="fillc" x="6" y="60" width="126" height="70"/><rect class="soft" x="160" y="60" width="104" height="70"/><rect class="fillc" x="292" y="60" width="114" height="70"/>
@@ -553,7 +568,7 @@
 
     <div class="tabs" id="tabs" role="tablist" aria-label="Index folders">
       <button type="button" role="tab" id="tb-projects" data-tab="projects" aria-controls="tab-projects" aria-selected="true"><span class="tab-lip" aria-hidden="true"></span>Projects <span class="count">9</span></button>
-      <button type="button" role="tab" id="tb-notes" data-tab="notes" aria-controls="tab-notes" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Field notes <span class="count">7</span></button>
+      <button type="button" role="tab" id="tb-notes" data-tab="notes" aria-controls="tab-notes" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Field notes <span class="count">8</span></button>
       <button type="button" role="tab" id="tb-map" data-tab="map" aria-controls="tab-map" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Map</button>
       <button type="button" role="tab" id="tb-life" data-tab="life" aria-controls="tab-life" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Off the clock</button>
       <button type="button" role="tab" id="tb-honours" data-tab="honours" aria-controls="tab-honours" aria-selected="false"><span class="tab-lip" aria-hidden="true"></span>Honours<span class="wide-only">&nbsp;and manuscripts</span> <span class="count">6</span></button>
@@ -594,6 +609,7 @@
         <button type="button" class="row note" data-note="qd"><span class="n">N5</span><b>Quantum dots: colour set by size</b><span class="ctx">Nanomaterials · why smaller glows bluer</span><span class="res">Read the note →</span></button>
         <button type="button" class="row note" data-note="spion"><span class="n">N6</span><b>SPIONs: magnets that switch off</b><span class="ctx">Nanomaterials · superparamagnetism and ferrofluids</span><span class="res">Read the note →</span></button>
         <button type="button" class="row note" data-note="afm"><span class="n">N7</span><b>Atomic force microscopy, and when the tip lies</b><span class="ctx">Characterization · with a proposed tip-wear project</span><span class="res">Read the note →</span></button>
+        <button type="button" class="row note" data-note="frontier"><span class="n">N8</span><b>Frontier watch: 2026</b><span class="ctx">DNA origami, superconductors, quantum fluids, qubits, BCIs, lasers</span><span class="res">Read the note →</span></button>
       </div>
     </div>
 
